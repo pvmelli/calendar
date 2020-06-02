@@ -1,0 +1,17 @@
+.day-table {
+    border: 2px solid black;
+    margin: 10px;
+}
+
+.day-table thead {
+    border-bottom: 2px solid black;
+    text-align: center;
+}
+
+.day-table tr {
+    border-bottom: 2px solid black;
+}
+
+.day-table td {
+    width: 100px;
+}
