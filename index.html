@@ -5,8 +5,8 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Calendar</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <link rel='stylesheet' href='./node_modules/bootstrap/dist/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='./styles.css'>
 </head>
 <body>
     <div class="container">
@@ -26,13 +26,15 @@
         </div>
 
         <div class="row">
-            <div class="col" id="prev-container">
+            <div class="col-sm" id="prev-container">
 
             </div>
-            <div class="col" id="calendar-container">
+            <div class="col-12">
+                <div class="row" id="calendar-container">
 
+                    </div>
             </div>
-            <div class="col" id="next-container">
+            <div class="col-sm" id="next-container">
 
             </div>
           </div>
@@ -51,5 +53,8 @@
 
 
       </div>  
+
+
+      <script type="module" src="./index.js"/>
 </body>
 </html>
