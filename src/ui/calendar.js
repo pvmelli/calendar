@@ -1,23 +1,5 @@
-import {getDaysOfAWeek, getDateOfISOWeek} from '../utilities/utilities.js';
-import {getEvents} from '../services/service.js';
-import {displayEvents, displaySingleEvent} from './events.js';
-import {getSelectedWeek} from './general.js';
-
-
-export function manageWeeklyView() {
-    const selectedWeek = getSelectedWeek();
-    const date = getDateOfISOWeek(selectedWeek[0], selectedWeek[1]);
-    const weekDays = getDaysOfAWeek(date);
-
-    manageCalendarCreation(weekDays, createADay)
-    getEvents(weekDays).then((matchingEvents) => {
-        displayEvents(matchingEvents, displaySingleEvent);
-    })
-}
-
 export function manageCalendarCreation(daysArray, createADayCallback = () => {}) {
     const $calendarContainer = document.querySelector('#calendar-container');
-    $calendarContainer.innerHTML = '';
 
     daysArray.forEach((day) => {
         const $calendarDay = createADayCallback(day);
