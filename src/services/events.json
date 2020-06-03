@@ -145,7 +145,7 @@
       "email": "test@test.com",
       "displayName": "Test Test",
       "organizer": false,
-      "self": false,
+      "self": true,
       "responseStatus": true
     },
     {

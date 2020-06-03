@@ -32,13 +32,13 @@ class Attendees {
         this.id = data.id;
         this.email = data.email;
         this.displayName = data.displayName;
-        this.organizer = data.organizar;
+        this.organizer = data.organizer;
         this.self = data.self;
         this.responseStatus = data.responseStatus;
     }
 }
 
-export function displayEvents(eventsArray){
+export function displayEvents(eventsArray, displaySingleEventCallback = () => {}){
 
     eventsArray.forEach((eventData) => {
         let attendeesList = [];
@@ -50,12 +50,12 @@ export function displayEvents(eventsArray){
 
         const event = new Events(eventData, creator, attendeesList);
 
-        displaySingleEvent(event);
+        displaySingleEventCallback(event);
 
     });
 };
 
-function displaySingleEvent(event) {
+export function displaySingleEvent(event) {
     const $eventContainer = document.querySelector(`[data-hour="${event.startDay}-${event.startHour}"]`)
     const $event = document.createElement('div');
     $event.classList.add('event');
@@ -65,11 +65,13 @@ function displaySingleEvent(event) {
     $event.dataset.updated = `${event.updated}`
     $event.dataset.summary = `${event.summary}`
     $event.dataset.description = `${event.description}`
-    $event.dataset.start = `${event.startDay}/at/${event.startHour}:${event.startMinutes}`
-    $event.dataset.end = `${event.endDay}/at/${event.endHour}:${event.endMinutes}`
+    $event.dataset.start = `${event.startDay} at ${event.startHour}:${event.startMinutes}`
+    $event.dataset.end = `${event.endDay} at ${event.endHour}:${event.endMinutes}`
     $event.dataset.creator = `${JSON.stringify(event.creator)}`
     $event.dataset.attendees = `${JSON.stringify(event.attendees)}`
-
+    $event.onclick = (e) => {
+        displayEventDetails(e, createEventInfoBox);
+    };
 
     $eventContainer.appendChild($event);
 };
