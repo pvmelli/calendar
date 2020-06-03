@@ -26,14 +26,14 @@ export function createADay(day) {
         const firstHourContainer = document.createElement('th');
         firstHourContainer.innerText = i;
         const firstEventContainer = document.createElement('td');
-        firstEventContainer.dataset.hour = i;
+        firstEventContainer.dataset.hour = `${day}-${i}`;
         row.appendChild(firstHourContainer);
         row.appendChild(firstEventContainer);
 
         const secondHourContainer = document.createElement('th');
         secondHourContainer.innerText = i + 12;
         const secondEventContainer = document.createElement('td');
-        secondEventContainer.dataset.hour = i + 12;
+        secondEventContainer.dataset.hour = `${day}-${i + 12}`;
         row.appendChild(secondHourContainer);
         row.appendChild(secondEventContainer);
         
