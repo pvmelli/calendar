@@ -50,12 +50,12 @@ export function displayEvents(eventsArray, displaySingleEventCallback = () => {}
 
         const event = new Events(eventData, creator, attendeesList);
 
-        displaySingleEventCallback(event);
+        displaySingleEventCallback(event, displayEventButtons);
 
     });
 };
 
-export function displaySingleEvent(event) {
+export function displaySingleEvent(event, displayEventButtonsCallback = () => {}) {
     const $eventContainer = document.querySelector(`[data-hour="${event.startDay}-${event.startHour}"]`)
     const $event = document.createElement('div');
     $event.classList.add('event');
@@ -69,11 +69,48 @@ export function displaySingleEvent(event) {
     $event.dataset.end = `${event.endDay} at ${event.endHour}:${event.endMinutes}`
     $event.dataset.creator = `${JSON.stringify(event.creator)}`
     $event.dataset.attendees = `${JSON.stringify(event.attendees)}`
-    $event.onclick = (e) => {
+    $event.dataset.status = 'pending';
+
+    displayEventButtonsCallback($event)    
+
+    $eventContainer.appendChild($event);
+};
+
+function displayEventButtons($event) {
+    const $doneButton = document.createElement('a');
+    $doneButton.classList.add('fa')
+    $doneButton.classList.add('fa-check-square-o')
+    $doneButton.addEventListener('click', markEventAsDone);
+
+    $event.appendChild($doneButton);
+
+    const $cancelButton = document.createElement('a');
+    $cancelButton.classList.add('fa')
+    $cancelButton.classList.add('fa-trash-o')
+    $cancelButton.addEventListener('click', cancelEvent);
+
+    $event.appendChild($cancelButton);
+
+    const $modifyButton = document.createElement('a');
+    $modifyButton.classList.add('fa')
+    $modifyButton.classList.add('fa-cog')
+    $modifyButton.onclick = (e) => {
         displayEventDetails(e, createEventInfoBox);
     };
 
-    $eventContainer.appendChild($event);
+    $event.appendChild($modifyButton);
+};
+
+function cancelEvent(e) {
+    const $event = e.target.parentNode;
+    $event.style.backgroundColor = 'grey';
+    $event.dataset.status = 'cancelled';
+};
+
+function markEventAsDone(e) {
+    const $event = e.target.parentNode;
+    $event.style.backgroundColor = '#43bbef';
+    $event.dataset.status = 'done';
 };
 
 function displayEventDetails(e, createEventInfoBoxCallback = () => {}) {
@@ -84,7 +121,7 @@ function displayEventDetails(e, createEventInfoBoxCallback = () => {}) {
 
     const $container = document.querySelector('#event-content');
 
-    const $eventInfoBox = createEventInfoBoxCallback(e.target);
+    const $eventInfoBox = createEventInfoBoxCallback(e.target.parentNode);
 
     $container.appendChild($eventInfoBox)
 }
@@ -97,6 +134,11 @@ function createEventInfoBox(event) {
     $title.classList.add('form-control');
     $title.value = event.getAttribute('data-summary');
     $infoBox.appendChild($title);
+
+    const $status = document.createElement('strong');
+    $status.classList.add('text-muted')
+    $status.innerText = `Status: ${event.getAttribute('data-status')}`
+    $infoBox.appendChild($status);
 
     const $date = document.createElement('p');
     $date.classList.add('text-muted')
