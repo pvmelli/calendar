@@ -20,9 +20,8 @@ export async function getEvents(daysArray) {
     }catch (e){
         try {
             const eventsData = await loadEventsFromApi(daysArray);
-            console.log(eventsData)
             eventsData.forEach((eventData) => {
-                saveEventsToLocalStorage (eventData.start.slice(0,10), eventData.created, eventData)
+                saveEventsToLocalStorage (eventData.created, eventData)
             })
 
             return eventsData;
