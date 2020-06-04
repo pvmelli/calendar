@@ -39,6 +39,47 @@
         "responseStatus": null
       }
     ]
+  },{
+    "id": 1,
+    "created": "2020-09-26T22:39:50.984Z",
+    "updated": "2020-04-26T22:39:50.984Z",
+    "summary": "Evento 1",
+    "description": "Descripción prolongada del evento 1",
+    "color": "#F00",
+    "creator": {
+      "id": 1,
+      "email": "test@test.com",
+      "displayName": "Test Test",
+      "self": true
+    },
+    "start": "2020-04-26T22:43:52.214Z",
+    "end": "2020-04-26T23:43:52.214Z",
+    "attendees": [
+      {
+        "id": 1,
+        "email": "test@test.com",
+        "displayName": "Test Test",
+        "organizer": true,
+        "self": true,
+        "responseStatus": true
+      },
+      {
+        "id": 2,
+        "email": "test2@test.com",
+        "displayName": "Test2 Test",
+        "organizer": false,
+        "self": false,
+        "responseStatus": false
+      },
+      {
+        "id": 3,
+        "email": "test3@test.com",
+        "displayName": "Test3 Test",
+        "organizer": false,
+        "self": false,
+        "responseStatus": null
+      }
+    ]
   },
 {
   "id": 1,
@@ -146,7 +187,7 @@
       "displayName": "Test Test",
       "organizer": false,
       "self": true,
-      "responseStatus": true
+      "responseStatus": null
     },
     {
       "id": 2,

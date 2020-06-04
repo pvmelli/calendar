@@ -10,19 +10,21 @@ import {
 
 export async function getEvents(daysArray) {
     try {
-        let eventsData = null;//loadEventsFromLocalStorage(daysArray);
+        let eventsData = loadEventsFromLocalStorage(daysArray)
 
-        if (eventsData === null) {
+        if (eventsData === 'failed') {
             throw error;
         } else {
-            return events;
+            return eventsData;
         }
     }catch (e){
         try {
             const eventsData = await loadEventsFromApi(daysArray);
+            console.log(eventsData)
+            eventsData.forEach((eventData) => {
+                saveEventsToLocalStorage (eventData.start.slice(0,10), eventData.created, eventData)
+            })
 
-            //saveEventsToLocalStorage (daysArray, eventsData);
-            
             return eventsData;
         }catch(e) {
             return null;
