@@ -10,13 +10,13 @@ class Events {
         this.description = eventData.description;
         this.color = eventData.color;
         this.start = eventData.start;
-        this.startDay = eventData.start.slice(0,10);
-        this.startHour = eventData.start.slice(11,13);
-        this.startMinutes = eventData.start.slice(14,16);
+        this.startDay = eventData.startDay;
+        this.startHour = eventData.startHour;
+        this.startMinutes = eventData.startMinutes;
         this.end = eventData.end;
-        this.endDay = eventData.end.slice(0,10);
-        this.endHour = eventData.end.slice(11,13);
-        this.endMinutes = eventData.start.slice(14,16);
+        this.endDay = eventData.endDay;
+        this.endHour = eventData.endHour;
+        this.endMinutes = eventData.endMinutes;
         this.creator = creatorData;
         this.attendees = attendeesData;
     }
@@ -67,8 +67,8 @@ export function displaySingleEvent(event, displayEventButtonsCallback = () => {}
     $event.style.backgroundColor = event.color;
     $event.innerText = event.summary;
     $event.dataset.keyword = `${event.keyword}`
-    $event.dataset.origStart = `${event.startDay}`
-    $event.dataset.duration = `${event.startDay} at ${event.startHour}:${event.startMinutes} - ${event.endDay} at ${event.endHour}:${event.endMinutes}`
+    $event.dataset.origStart = `${event.start}`
+    $event.dataset.duration = `${event.startDay} at ${event.startHour}:${event.startMinutes} TO ${event.endDay} at ${event.endHour}:${event.endMinutes}`
     $event.dataset.status = 'pending';
     $event.dataset.obj = `${JSON.stringify(event)}`;
 
@@ -110,10 +110,9 @@ function cancelEvent(e) {
     $event.dataset.obj = `${JSON.stringify(eventObj)}`;
     $event.dataset.status = 'cancelled';
 
-    const origDay = $event.getAttribute('data-orig-start');
     const eventCreation = $event.getAttribute('data-keyword');
 
-    saveEventsToLocalStorage(origDay, eventCreation, eventObj)
+    saveEventsToLocalStorage(eventCreation, eventObj)
 };
 
 function markEventAsDone(e) {
@@ -124,10 +123,9 @@ function markEventAsDone(e) {
     $event.dataset.obj = `${JSON.stringify(eventObj)}`;
     $event.dataset.status = 'done';
 
-    const origDay = $event.getAttribute('data-orig-start');
     const eventCreation = $event.getAttribute('data-keyword');
 
-    saveEventsToLocalStorage(origDay, eventCreation, eventObj)
+    saveEventsToLocalStorage(eventCreation, eventObj)
 };
 
 function displayEventDetails(e, createEventInfoBoxCallback = () => {}) {
@@ -288,9 +286,8 @@ function modifyEventItem(e, $event, saveEventsToLocalStorageCallback = () => {})
 
     $event.dataset.obj = `${JSON.stringify(eventObj)}`;
 
-    const origDay = $event.getAttribute('data-orig-start');
     const eventCreation = $event.getAttribute('data-keyword');
-    saveEventsToLocalStorageCallback(origDay, eventCreation, eventObj)
+    saveEventsToLocalStorageCallback(eventCreation, eventObj)
 
     location.reload();
 
