@@ -1,3 +1,7 @@
+body {
+    background-color: rgb(240, 240, 240);
+}
+
 .top-row {
     padding-top: 20px;
 }
@@ -6,18 +10,43 @@
     margin-left: 6px;
 }
 
+input {
+    border-radius: 4px;
+    border: 1px solid #43bbef;
+    padding-left: 10px;
+    height: 40px;
+}
+
+#calendar-container{
+    background-color: white;
+    border-radius: 8px;
+    margin: 10px 3% 20px 3%;
+    padding: 5px;
+}
+
 .day-table {
-    border: 2px solid black;
-    margin: 10px;
+    border-collapse:separate;
+    border-radius: 6px;
+    -moz-border-radius:6px;
+    border: 2px solid #43bbef;
+    margin: 10px;    
 }
 
 .day-table thead {
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid #43bbef;
+    background-color: #43bbef;
     text-align: center;
 }
 
+.day-table th {
+    background-color: #43bbef9a;
+    width: 30px;
+    text-align: center;
+    border-radius: 3px;
+}
+
 .day-table tr {
-    border-bottom: 2px solid black;
+    border-bottom: 1px solid #43bbef;
 }
 
 .day-table td {

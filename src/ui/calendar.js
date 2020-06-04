@@ -28,6 +28,7 @@ export function manageCalendarCreation(daysArray, createADayCallback = () => {})
 export function createADay(day) {
     const $dayContainer = document.createElement('table');
     $dayContainer.classList.add('day-table')
+    $dayContainer.classList.add('table-striped')
 
     const $dayContainerHeader = document.createElement('thead');
     $dayContainerHeader.classList.add('thead-dark');
