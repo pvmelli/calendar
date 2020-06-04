@@ -4,9 +4,9 @@ export function loadEventsFromLocalStorage(daysArray) {
     daysArray.forEach((day) => {
         for(let i = 0; i < localStorage.length; i++) {
             let key = localStorage.key(i);
-            let value = localStorage[key];
-                if(key.slice(0,10) === day) {
-                    events.push(JSON.parse(value));
+            let value = JSON.parse(localStorage[key]);
+                if(value.startDay === day) {
+                    events.push(value);
                 }
             } 
     })
@@ -18,6 +18,6 @@ export function loadEventsFromLocalStorage(daysArray) {
     }   
 };
 
-export function saveEventsToLocalStorage (eventStartDay, eventCreation, eventData) {
-    localStorage.setItem(`${eventStartDay}-${eventCreation}`, JSON.stringify(eventData));
+export function saveEventsToLocalStorage (eventCreation, eventData) {
+    localStorage.setItem(`${eventCreation}`, JSON.stringify(eventData));
 };
