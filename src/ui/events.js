@@ -66,11 +66,9 @@ export function displaySingleEvent(event, displayEventButtonsCallback = () => {}
     $event.classList.add('event');
     $event.style.backgroundColor = event.color;
     $event.innerText = event.summary;
-    console.log(event.keyword);
     $event.dataset.keyword = `${event.keyword}`
     $event.dataset.origStart = `${event.startDay}`
-    $event.dataset.duration = `${event.startDay} at ${event.startHour}:${event.startMinutes} -
-        ${event.endDay} at ${event.endHour}:${event.endMinutes}`
+    $event.dataset.duration = `${event.startDay} at ${event.startHour}:${event.startMinutes} - ${event.endDay} at ${event.endHour}:${event.endMinutes}`
     $event.dataset.status = 'pending';
     $event.dataset.obj = `${JSON.stringify(event)}`;
 
@@ -175,16 +173,21 @@ function createEventInfoBox(event) {
 
     const $creationInfo = document.createElement('div');
     $creationInfo.classList.add('row');
+    $creationInfo.classList.add('creation-info');
+
 
     const $creator = document.createElement('div');
     $creator.classList.add('col');
 
     if (eventObj.creator.self){
-        $creator.innerHTML = `<strong>You created this event</strong>`;
+        $creator.innerHTML = `<h5>You created this event</h5>`;
     }else {
-        const $creatorHTML = `<strong>${eventObj.creator.displayName}</strong><p>${eventObj.creator.email}</p>`
+        const $creatorHTML = `<h5>${eventObj.creator.displayName}</h5><p>${eventObj.creator.email}</p>`
         $creator.innerHTML = $creatorHTML;
     }
+
+    const $separator = document.createElement('div');
+    $separator.classList.add('separator');
 
 
     const $creation = document.createElement('div');
@@ -193,6 +196,7 @@ function createEventInfoBox(event) {
     $creation.innerHTML = $creationHTML;
 
     $creationInfo.appendChild($creator)
+    $creationInfo.appendChild($separator)
     $creationInfo.appendChild($creation)
 
     $infoBox.appendChild($creationInfo);
@@ -200,28 +204,29 @@ function createEventInfoBox(event) {
 
     const $attendeeBox = document.createElement('div');
     $attendeeBox.classList.add('row');
+    $attendeeBox.classList.add('attendee-box');
 
     eventObj.attendees.forEach((person) => {
         const $onePerson = document.createElement('div');
         $onePerson.classList.add('col');
+        $onePerson.classList.add('person');
 
         if(person.self && !person.organizer){
             const you = `<strong>You were invited!</strong><br>`
             const invitationAccepted = `<p class="text-muted">Invitation accepted</p>`;
             const invitationRejected = `<p class="text-muted">Invitation rejected</p>`;
-            const unsure = `<strong>Will you attend?</strong><br><input type="radio" id="yes-radio" name="attending" value="true" class="custom-radio">
-            <label for="yes">YES</label><br><input type="radio" id="no-radio" name="attending" value="false" class="custom-radio">
-            <label for="no">NO</label>`
+            const unsure = `<p>Will you attend?</p>
+            <div><input class="custom-radio form-check-input radio-btn" type="radio" name="attending" id="yes-radio" value="true"><label class="form-check-label radio-label" for="yes">yes</label></div>
+            <div><input class="custom-radio form-check-input radio-btn" type="radio" name="attending" id="no-radio" value="false"><label class="form-check-label radio-label" for="no">no</label></div>`
+            
             const isAttending = person.responseStatus ?  invitationAccepted : person.responseStatus === false ? invitationRejected : unsure;
-
-            console.log(person.responseStatus);
             $onePerson.innerHTML = you + isAttending;
         }else {
             const name = `<strong>${person.displayName}</strong>`
             const email = `<p class="text-muted">${person.email}</p>`
             const isOrganizer = person.organizer ? `<p class="text-muted">Organizer</p>` : `<p class="text-muted">Invited</p>`
-            const isAttending = person.responseStatus ? `<p class="text-muted">They'll go!</p>` : 
-            person.responseStatus = false? `<p class="text-muted">They rather stay home</p>` : `<p class="text-muted">Haven't responded</p>` 
+            const isAttending = person.responseStatus ? `<p>They'll go!</p>` : 
+            person.responseStatus = false? `<p>They rather stay home</p>` : `<p>Haven't responded</p>` 
 
             $onePerson.innerHTML = name + email + isOrganizer + isAttending;
         }
@@ -231,15 +236,21 @@ function createEventInfoBox(event) {
 
     $infoBox.appendChild($attendeeBox);
 
+    const $buttonContainer = document.createElement('div');
+    $buttonContainer.classList.add('button-container');
+
     const $acceptButton = document.createElement('button');
     $acceptButton.setAttribute('type','button');
     $acceptButton.classList.add('btn');
+    $acceptButton.classList.add('btn-dark');    
     $acceptButton.innerText = 'SAVE CHANGES'
     $acceptButton.onclick = (e) => {
         modifyEventItem(e, event, saveEventsToLocalStorage);
     }
 
-    $infoBox.appendChild($acceptButton);
+    $buttonContainer.appendChild($acceptButton)
+
+    $infoBox.appendChild($buttonContainer);
 
     return $infoBox;
 };
@@ -277,12 +288,8 @@ function modifyEventItem(e, $event, saveEventsToLocalStorageCallback = () => {})
 
     $event.dataset.obj = `${JSON.stringify(eventObj)}`;
 
-    console.log(JSON.parse($event.getAttribute('data-obj')))
-
     const origDay = $event.getAttribute('data-orig-start');
     const eventCreation = $event.getAttribute('data-keyword');
-    console.log(eventCreation)
-
     saveEventsToLocalStorageCallback(origDay, eventCreation, eventObj)
 
     location.reload();

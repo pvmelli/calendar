@@ -1,3 +1,7 @@
+body {
+    background-color: rgb(240, 240, 240);
+}
+
 .top-row {
     padding-top: 20px;
 }
@@ -6,18 +10,43 @@
     margin-left: 6px;
 }
 
+input {
+    border-radius: 4px;
+    border: 1px solid #43bbef;
+    padding-left: 10px;
+    height: 40px;
+}
+
+#calendar-container{
+    background-color: white;
+    border-radius: 8px;
+    margin: 10px 3% 20px 3%;
+    padding: 5px;
+}
+
 .day-table {
-    border: 2px solid black;
-    margin: 10px;
+    border-collapse:separate;
+    border-radius: 6px;
+    -moz-border-radius:6px;
+    border: 2px solid #43bbef;
+    margin: 10px;    
 }
 
 .day-table thead {
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid #43bbef;
+    background-color: #43bbef;
     text-align: center;
 }
 
+.day-table th {
+    background-color: #43bbef9a;
+    width: 30px;
+    text-align: center;
+    border-radius: 3px;
+}
+
 .day-table tr {
-    border-bottom: 2px solid black;
+    border-bottom: 1px solid #43bbef;
 }
 
 .day-table td {
@@ -38,20 +67,12 @@
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
 }
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #43bbef;
-    width: 80%;
-    height: 75%;
-    text-align: center;
-}
 
 .modal-title {
     background-color: #43bbef;
     margin: -20px;
     border-radius: 4px 4px 0 0;
+    height: 50px;
 }
 
 #modal-content form {
@@ -61,12 +82,78 @@
 #close-modal-button {
     border: none;
     background-color: #43bbef;;
-    width: 30px;
+    width: 40px;
     font-family: monospace;
-    font-size: 20px;
+    font-size: 25px;
     color: white;
-    margin-left: 90%;
+    margin-left: 85%;
+    padding-top: 0.3rem;
 }
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10%;
+    padding: 20px;
+    border: 1px solid #43bbef;
+    width: 450px;
+    height: 550px;
+    text-align: left;
+}
+
+.modal-content p {
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+}
+
+.modal-content h5 {
+    font-size: 1.2rem;
+}
+
+.modal-content .creation-info {
+    background-color: #f2f2f2;
+    border-radius: 3px;
+    margin: 20px 1px 20px 1px;
+    text-align: center;
+    padding: 10px 0 10px 0;
+}
+
+.creation-info ul {
+    font-size: 0.7rem;
+}
+
+.attendee-box{
+    margin: 10px 5px 20px 5px;
+}
+
+.radio-label {
+    padding-top: 10px;
+    padding-left: 0.2rem;
+}
+
+.attendee-box .person {
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    margin: 0px 5px 0px 5px;
+    text-align: center;
+    padding-bottom: 0.2rem;
+}
+
+.separator {
+    width: 2px;
+    background-color: rgb(161, 161, 161);
+}
+
+.modal-content .button-container {
+    text-align: center;
+}
+
+.modal-content button {
+    background-color: #43bbef;
+    color: white;
+    border: none;
+}
+
+
 
 .not-display {
     display: none;
