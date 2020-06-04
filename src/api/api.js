@@ -8,6 +8,7 @@ export async function loadEventsFromApi (dateArray) {
         const eventStartDate = event.start.slice(0,10);
         const eventEndDate = event.end.slice(0,10);
         if (dateArray.indexOf(eventStartDate) !== -1 || dateArray.indexOf(eventEndDate) !== -1){
+            event.keyword = event.created;
             matchingEvents.push(event);
         }
     })
