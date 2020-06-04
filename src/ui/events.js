@@ -158,9 +158,25 @@ function createEventInfoBox(event) {
     $status.innerText = `Status: ${event.getAttribute('data-status')}`
     $infoBox.appendChild($status);
 
-    const $date = document.createElement('p');
-    $date.classList.add('text-muted')
-    $date.innerText = `${event.getAttribute('data-duration')}`
+    const $date = document.createElement('div');
+    $date.classList.add('duration-container')
+    const duration = `${event.getAttribute('data-duration')}`
+    const divisions = duration.split(/ |(:)|(-)/);
+    const result = divisions.filter(part => part !== undefined);
+
+    const inputNodes = []
+
+    result.forEach((part) => {
+        if(Number.isInteger(parseInt(part))){
+            const inputHTML = `<input type="number" class="form-control date-control" value="${part}">`
+            inputNodes.push(inputHTML);
+        } else {
+            const inputHTML = `<input class="date-control date-non" value="${part}" disabled>`
+            inputNodes.push(inputHTML);
+        }
+    })
+    $date.innerHTML = inputNodes.join('');
+
     $infoBox.appendChild($date);
 
     const $description = document.createElement('textarea');
@@ -272,6 +288,29 @@ function modifyEventItem(e, $event, saveEventsToLocalStorageCallback = () => {})
 
     const newDescription = document.querySelector('#description-modif').value;
     eventObj.description = newDescription;
+
+    const durationInputs = document.querySelectorAll('.date-control');
+    const newDuration = [];
+    durationInputs.forEach(input => {
+        if(input.value === 'at' || input.value === 'TO'){
+            newDuration.push(` ${input.value} `)
+        } else {
+            newDuration.push(input.value)
+        }        
+    })
+
+    $event.dataset.duration = newDuration.join('');
+
+    const newStartDate = newDuration[0] + newDuration[1] + newDuration[2] + newDuration[3] + newDuration[4]
+    eventObj.startDay = newStartDate;
+    eventObj.startHour = Number(newDuration[6]);
+    eventObj.startMinutes = newDuration[8];
+
+    const newEndDate = newDuration[10] + newDuration[11] + newDuration[12] + newDuration[13] + newDuration[14]
+    eventObj.endDay = newEndDate;
+    eventObj.endHour = Number(newDuration[16]);
+    eventObj.endMinutes = newDuration[18];
+
 
     if(document.querySelector('.custom-radio') !== null){
         eventObj.attendees.forEach((attendee) => {
