@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test-coverage": "jest --collect-coverage",
+    "test:dev": "jest --watchAll"
   },
   "repository": {
     "type": "git",
@@ -18,5 +20,12 @@
   "homepage": "https://github.com/pvmelli/calendar#readme",
   "dependencies": {
     "bootstrap": "^4.5.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@types/jest": "^25.2.3",
+    "babel-jest": "^26.0.1",
+    "jest": "^26.0.1"
   }
 }
