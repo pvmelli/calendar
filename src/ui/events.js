@@ -1,47 +1,8 @@
-import { saveEventsToLocalStorage } from "../storage/storage.js";
-
-class Events {
-    constructor(eventData, creatorData, attendeesData = []) {
-        this.id = eventData.id;
-        this.created = eventData.created;
-        this.updated = eventData.updated;
-        this.keyword = eventData.keyword;
-        this.summary = eventData.summary;
-        this.description = eventData.description;
-        this.color = eventData.color;
-        this.start = eventData.start;
-        this.startDay = eventData.startDay;
-        this.startHour = eventData.startHour;
-        this.startMinutes = eventData.startMinutes;
-        this.end = eventData.end;
-        this.endDay = eventData.endDay;
-        this.endHour = eventData.endHour;
-        this.endMinutes = eventData.endMinutes;
-        this.creator = creatorData;
-        this.attendees = attendeesData;
-    }
-
-}
-
-class Creator {
-    constructor(data){
-        this.id = data.id;
-        this.email = data.email;
-        this.displayName = data.displayName;
-        this.self = data.self;
-    }
-}
-
-class Attendees {
-    constructor(data){
-        this.id = data.id;
-        this.email = data.email;
-        this.displayName = data.displayName;
-        this.organizer = data.organizer;
-        this.self = data.self;
-        this.responseStatus = data.responseStatus;
-    }
-}
+import {closeModal} from "./general.js";
+import {cancelEvent, markEventAsConfirmed, modifyEventItem} from './event-modification.js';
+import Events from '../classes/events.js'
+import Creator from '../classes/creator.js'
+import Attendees from '../classes/attendees.js'
 
 export function displayEvents(eventsArray, displaySingleEventCallback = () => {}){
 
@@ -55,12 +16,12 @@ export function displayEvents(eventsArray, displaySingleEventCallback = () => {}
 
         const event = new Events(eventData, creator, attendeesList);
 
-        displaySingleEventCallback(event, displayEventButtons);
+        displaySingleEventCallback(event);
 
     });
 };
 
-export function displaySingleEvent(event, displayEventButtonsCallback = () => {}) {
+export function displaySingleEvent(event) {
     const $eventContainer = document.querySelector(`[data-hour="${event.startDay}-${event.startHour}"]`)
     const $event = document.createElement('div');
     $event.classList.add('event');
@@ -72,7 +33,7 @@ export function displaySingleEvent(event, displayEventButtonsCallback = () => {}
     $event.dataset.status = 'pending';
     $event.dataset.obj = `${JSON.stringify(event)}`;
 
-    displayEventButtonsCallback($event)    
+    displayEventButtons($event)    
 
     $eventContainer.appendChild($event);
 };
@@ -81,7 +42,7 @@ function displayEventButtons($event) {
     const $doneButton = document.createElement('a');
     $doneButton.classList.add('fa')
     $doneButton.classList.add('fa-check-square-o')
-    $doneButton.addEventListener('click', markEventAsDone);
+    $doneButton.addEventListener('click', markEventAsConfirmed);
 
     $event.appendChild($doneButton);
 
@@ -95,54 +56,29 @@ function displayEventButtons($event) {
     const $modifyButton = document.createElement('a');
     $modifyButton.classList.add('fa')
     $modifyButton.classList.add('fa-cog')
-    $modifyButton.onclick = (e) => {
-        displayEventDetails(e, createEventInfoBox);
-    };
+    $modifyButton.addEventListener('click', displayEventDetails);
 
     $event.appendChild($modifyButton);
 };
 
-function cancelEvent(e) {
-    const $event = e.target.parentNode;
-    $event.style.backgroundColor = '#A0A0A0';
-    const eventObj = JSON.parse($event.getAttribute('data-obj'));
-    eventObj.color = '#A0A0A0';
-    $event.dataset.obj = `${JSON.stringify(eventObj)}`;
-    $event.dataset.status = 'cancelled';
-
-    const eventCreation = $event.getAttribute('data-keyword');
-
-    saveEventsToLocalStorage(eventCreation, eventObj)
-};
-
-function markEventAsDone(e) {
-    const $event = e.target.parentNode;
-    $event.style.backgroundColor = '#43bbef';
-    const eventObj = JSON.parse($event.getAttribute('data-obj'));
-    eventObj.color = '#43bbef';
-    $event.dataset.obj = `${JSON.stringify(eventObj)}`;
-    $event.dataset.status = 'done';
-
-    const eventCreation = $event.getAttribute('data-keyword');
-
-    saveEventsToLocalStorage(eventCreation, eventObj)
-};
-
-function displayEventDetails(e, createEventInfoBoxCallback = () => {}) {
+export function displayEventDetails(e) {
     const $modal = document.querySelector('#event-modal');
     $modal.classList.remove('not-display');
     const $closeButton = document.querySelector('#close-modal-button')
     $closeButton.addEventListener('click', closeModal)
 
     const $container = document.querySelector('#event-content');
+    $container.innerHTML = '';
 
-    const $eventInfoBox = createEventInfoBoxCallback(e.target.parentNode);
+    const $eventInfoBox = createEventInfoBox(e.target.parentNode);
 
     $container.appendChild($eventInfoBox)
 }
 
-function createEventInfoBox(event) {
+export function createEventInfoBox(event) {
     const $infoBox = document.createElement('form');
+    $infoBox.setAttribute('id', 'event-information')
+    $infoBox.dataset.selected = event.dataset.keyword;
 
     const eventObj = JSON.parse(event.getAttribute('data-obj'));
 
@@ -193,7 +129,7 @@ function createEventInfoBox(event) {
     const $creator = document.createElement('div');
     $creator.classList.add('col');
 
-    if (eventObj.creator.self){
+    if (eventObj.creator.self === true){
         $creator.innerHTML = `<h5>You created this event</h5>`;
     }else {
         const $creatorHTML = `<h5>${eventObj.creator.displayName}</h5><p>${eventObj.creator.email}</p>`
@@ -239,8 +175,7 @@ function createEventInfoBox(event) {
             const name = `<strong>${person.displayName}</strong>`
             const email = `<p class="text-muted">${person.email}</p>`
             const isOrganizer = person.organizer ? `<p class="text-muted">Organizer</p>` : `<p class="text-muted">Invited</p>`
-            const isAttending = person.responseStatus ? `<p>They'll go!</p>` : 
-            person.responseStatus = false? `<p>They rather stay home</p>` : `<p>Haven't responded</p>` 
+            const isAttending = person.responseStatus ? `<p>They'll go!</p>` : person.responseStatus === false ? `<p>They rather stay home</p>` : `<p>Haven't responded</p>` 
 
             $onePerson.innerHTML = name + email + isOrganizer + isAttending;
         }
@@ -258,9 +193,7 @@ function createEventInfoBox(event) {
     $acceptButton.classList.add('btn');
     $acceptButton.classList.add('btn-dark');    
     $acceptButton.innerText = 'SAVE CHANGES'
-    $acceptButton.onclick = (e) => {
-        modifyEventItem(e, event, saveEventsToLocalStorage);
-    }
+    $acceptButton.addEventListener('click', modifyEventItem);
 
     $buttonContainer.appendChild($acceptButton)
 
@@ -270,66 +203,5 @@ function createEventInfoBox(event) {
 };
 
 
-function closeModal() {
-    const $modal = document.querySelector('#event-modal');
-    $modal.classList.add('not-display');
-    const $container = document.querySelector('#event-content');
-    $container.innerHTML = '';
-};
-
-function modifyEventItem(e, $event, saveEventsToLocalStorageCallback = () => {}) {
-    const eventObj = JSON.parse($event.getAttribute('data-obj'));
-
-    let now = (new Date()).toISOString() ;
-    eventObj.updated = now;
-
-    const newSummary = document.querySelector('#summary-modif').value;
-    eventObj.summary = newSummary;
-
-    const newDescription = document.querySelector('#description-modif').value;
-    eventObj.description = newDescription;
-
-    const durationInputs = document.querySelectorAll('.date-control');
-    const newDuration = [];
-    durationInputs.forEach(input => {
-        if(input.value === 'at' || input.value === 'TO'){
-            newDuration.push(` ${input.value} `)
-        } else {
-            newDuration.push(input.value)
-        }        
-    })
-
-    $event.dataset.duration = newDuration.join('');
-
-    const newStartDate = newDuration[0] + newDuration[1] + newDuration[2] + newDuration[3] + newDuration[4]
-    eventObj.startDay = newStartDate;
-    eventObj.startHour = Number(newDuration[6]);
-    eventObj.startMinutes = newDuration[8];
-
-    const newEndDate = newDuration[10] + newDuration[11] + newDuration[12] + newDuration[13] + newDuration[14]
-    eventObj.endDay = newEndDate;
-    eventObj.endHour = Number(newDuration[16]);
-    eventObj.endMinutes = newDuration[18];
-
-
-    if(document.querySelector('.custom-radio') !== null){
-        eventObj.attendees.forEach((attendee) => {
-            if(attendee.self && document.querySelector('#yes-radio').checked){
-                attendee.responseStatus = true;
-            }
-            if(attendee.self && document.querySelector('#no-radio').checked){
-                attendee.responseStatus = false;
-            }
-        });
-    }
-
-    $event.dataset.obj = `${JSON.stringify(eventObj)}`;
-
-    const eventCreation = $event.getAttribute('data-keyword');
-    saveEventsToLocalStorageCallback(eventCreation, eventObj)
-
-    location.reload();
-
-}
 
 

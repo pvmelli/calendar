@@ -1,23 +1,20 @@
 export function loadEventsFromLocalStorage(daysArray) {
     const events = [];
 
-    daysArray.forEach((day) => {
-        for(let i = 0; i < localStorage.length; i++) {
-            let key = localStorage.key(i);
-            let value = JSON.parse(localStorage[key]);
-                if(value.startDay === day) {
-                    events.push(value);
-                }
-            } 
-    })
+    if(localStorage.length === 0) {
+        throw new Error(`Events couldn't be found`);
+    };
 
-    if(events.length !== 0){
-        return events;
-    } else {
-        return 'failed';
-    }   
+    for(let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        let value = JSON.parse(localStorage[key])
+        events.push(value);
+    };
+
+    return events;
+
 };
 
-export function saveEventsToLocalStorage (eventCreation, eventData) {
-    localStorage.setItem(`${eventCreation}`, JSON.stringify(eventData));
+export function saveEventsToLocalStorage (eventKeyword, eventData) {
+    localStorage.setItem(`${eventKeyword}`, JSON.stringify(eventData));
 };
