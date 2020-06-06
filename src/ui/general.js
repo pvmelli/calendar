@@ -5,5 +5,10 @@ export function getSelectedWeek() {
     const selectedWeek = [week, year]
 
     return selectedWeek;
-}
+};
+
+export function closeModal() {
+    const $modal = document.querySelector('#event-modal');
+    $modal.classList.add('not-display');
+};
 
