@@ -67,7 +67,7 @@ describe("Testea la visualización de eventos", () => {
         Element.prototype.addEventListener = jest.fn()
         displaySingleEvent(ALT_EVENT_WITH_KEY_DATA); 
 
-        const TARGET2 = document.querySelectorAll('.fa-cog')[1];
+        const TARGET2 = document.querySelectorAll('.event .fa-cog')[1];
         let MOCK_EVENT2 = document.createEvent('Event');
         MOCK_EVENT2.initEvent('mock', true, true);
         Object.defineProperty(MOCK_EVENT2, 'target', {writable: true, value: TARGET2});  
@@ -79,7 +79,7 @@ describe("Testea la visualización de eventos", () => {
 
         displaySingleEvent(EVENT_WITH_KEY_DATA);       
 
-        const TARGET1 = document.querySelectorAll('.fa-cog')[0];
+        const TARGET1 = document.querySelectorAll('.event .fa-cog')[0];
         let MOCK_EVENT1 = document.createEvent('Event');
         MOCK_EVENT1.initEvent('mock', true, true);
         Object.defineProperty(MOCK_EVENT1, 'target', {writable: true, value: TARGET1});       
@@ -97,7 +97,7 @@ describe("Testea la visualización de eventos", () => {
         Element.prototype.addEventListener = jest.fn()
         displaySingleEvent(ALT_EVENT_WITH_KEY_DATA); 
 
-        const TARGET2 = document.querySelectorAll('.fa-cog')[1];
+        const TARGET2 = document.querySelectorAll('.event .fa-cog')[1];
         let MOCK_EVENT2 = document.createEvent('Event');
         MOCK_EVENT2.initEvent('mock', true, true);
         Object.defineProperty(MOCK_EVENT2, 'target', {writable: true, value: TARGET2});  
@@ -109,7 +109,7 @@ describe("Testea la visualización de eventos", () => {
 
         displaySingleEvent(EVENT_WITH_KEY_DATA);       
 
-        const TARGET1 = document.querySelectorAll('.fa-cog')[0];
+        const TARGET1 = document.querySelectorAll('.event .fa-cog')[0];
         let MOCK_EVENT1 = document.createEvent('Event');
         MOCK_EVENT1.initEvent('mock', true, true);
         Object.defineProperty(MOCK_EVENT1, 'target', {writable: true, value: TARGET1});       
