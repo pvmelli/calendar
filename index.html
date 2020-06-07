@@ -10,6 +10,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+<div class="container-fluid">
+  <div class="event-modal not-display" id="instructions">
+    <div class="modal-content" id="instructions-container">
+      <div class="modal-title" id="instructions-title">
+        <button id="close-instructions-button">x</button>
+      </div>
+      <div id="instructions-content">
+        <div class="instructions-box">
+        <a class="fa fa-check-square-o"></a><p>Click on this icon to mark an event as <b>confirmed</b></p><br>
+        </div>
+        <div class="instructions-box">
+        <a class="fa fa-trash-o"></a><p>Click on this icon to mark an event as <b>cancelled</b></p><br>
+        </div>
+        <div class="instructions-box">
+        <a class="fa fa-cog"></a><p>Click on this icon to see and <b>modify</b> event details</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
     
 <div class="container-fluid">
       <div class="event-modal not-display" id="event-modal">
