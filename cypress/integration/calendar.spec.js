@@ -18,6 +18,20 @@ before(() => {
 });
 
 describe ('Verifica que la página se cargue correctamente', () => {
+    it('Verifica que las instrucciones se muestren la primera vez que entra al sitio', () => {
+        cy.server();
+        cy.route('./src/services/events.json', 'fixture:events')
+        .as('obtainEvents');
+
+        cy.get('#instructions').should('not.have.class','not-display');
+            cy.get('#instructions-content').find('.instructions-box').should('have.length', 3)
+            cy.get('#instructions-content').find('p').should('have.length', 3)
+            cy.get('#instructions-content').find('.fa').should('have.length', 3)
+
+        cy.get('#close-instructions-button').click()
+        cy.get('#instructions').should('have.class','not-display');
+
+    })
     it ('Verifica que el calendario y los eventos se carguen', () => {
         cy.server();
         cy.route('./src/services/events.json', 'fixture:events')
