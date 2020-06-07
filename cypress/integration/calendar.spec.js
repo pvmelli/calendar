@@ -8,7 +8,7 @@ before(() => {
         fetchPolyfill = response.body;
     });
 
-    cy.visit('http://127.0.0.1:5500', {
+    cy.visit('http://192.168.0.31:8080/', {
         onBeforeLoad(contentWindow) {
             delete contentWindow.fetch;
             contentWindow.eval(fetchPolyfill);
