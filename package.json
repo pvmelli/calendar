@@ -7,7 +7,7 @@
     "test": "jest",
     "test-coverage": "jest --collect-coverage",
     "test:dev": "jest --watchAll",
-    "cypress:open" : "cypress open"
+    "cypress:open": "cypress open"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "@types/jest": "^25.2.3",
     "babel-jest": "^26.0.1",
     "cypress": "^4.7.0",
+    "http-server": "^0.12.3",
     "jest": "^26.0.1"
   }
 }
