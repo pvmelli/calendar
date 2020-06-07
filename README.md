@@ -32,12 +32,16 @@ Calendario diseñado para mostrar eventos de manera semanal. Estos eventos son g
  Para este paso será necesario tener acceso a las herramientas mencionadas en el apartado REQUISITOS, por favor asegúrese de que dispone de ellas.
 
  Tras abrir la carpeta del repositorio con su IDE de preferencia, abra una nueva terminal/consola. Allí tipee el siguiente comando:
-``` npm install ```
+```
+npm install 
+```
 
 ### Levantar un servidor
 
 La aplicación necesita de un servidor para funcionar. Para levantar uno, tipee el siguiente comando en la terminal:
-``` npm run server ```
+``` 
+npm run server
+```
 Por favor asegúrese de no cerrar la terminal. Si lo hace, la aplicación no podrá correrse.
 
 ### Abrir la aplicación
@@ -65,7 +69,9 @@ Visite el sitio `localhost:8080` en su navegador. Al hacerlo, debería ver lo si
  ### Correr Cypress en un navegador
  
 Con el servidor levantado, abra otra terminal y tipee el comando:
-`npm run cypress:open`
+```
+npm run cypress:open
+```
 
 Esto debería abrir Cypress, de modo que aparecerá la siguiente ventana:
 ![Cypress open](https://i.imgur.com/2wsrpd1.png "Cypress open")
@@ -75,7 +81,9 @@ Clickee en la opción resaltada ("Run all specs").
 ### Correr Cypress en el IDE
 
 Con el servidor levantado, abra una terminal y tipee el comando:
-`npm run cypress:run`
+```
+npm run cypress:run
+```
 
 Los resultados de los tests se mostrarán en la terminal. Al finalizar los testeos, puede dirigirse a la carpeta './cypress/videos'. Allí encontrará videos donde podrá ver como se llevó a cabo el testeo. 
 
@@ -86,11 +94,15 @@ Los resultados de los tests se mostrarán en la terminal. Al finalizar los teste
  ### Correr Jest de manera rápida
  
  Para correr Jest normalmente, tipee el siguiente comando en la terminal:
- `npm run test`
+ ```
+ npm run test
+ ```
 
  ### Correr Jest con informe de cobertura
  
  Para que Jest le brinde un informe con los porcentajes de código que los testeos han cubierto, puede utilizar en la terminal el comando:
- `npm run test-coverage` 
+  ```
+  npm run test-coverage
+  ```
 
 
