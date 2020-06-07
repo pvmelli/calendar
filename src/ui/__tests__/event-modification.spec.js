@@ -37,7 +37,7 @@ describe("Modify events", () => {
         {"id": 4, "email": "pepe@gmail", "displayName" : "Pepito", "organizer": true, "self": false, "responseStatus": null},
         {"id": 5, "email": "pepe@gmail", "displayName" : "Pepito", "organizer": false, "self": true, "responseStatus": false},
         {"id": 6, "email": "pepe@gmail", "displayName" : "Pepito", "organizer": false, "self": true, "responseStatus": true},
-        {"id": 7, "email": "pepe@gmail", "displayName" : "Pepito", "organizer": true, "self": true, "responseStatus": null}]}
+        {"id": 7, "email": "pepe@gmail", "displayName" : "Pepito", "organizer": true, "self": true, "responseStatus": null}], "status" : "cancelled"}
 
         const TARGET = document.createElement('div')
 
@@ -67,7 +67,7 @@ describe("Modify events", () => {
         {"id": 4, "email": "pepe@gmail", "displayName" : "Pepito", "organizer": true, "self": false, "responseStatus": null},
         {"id": 5, "email": "pepe@gmail", "displayName" : "Pepito", "organizer": false, "self": true, "responseStatus": false},
         {"id": 6, "email": "pepe@gmail", "displayName" : "Pepito", "organizer": false, "self": true, "responseStatus": true},
-        {"id": 7, "email": "pepe@gmail", "displayName" : "Pepito", "organizer": true, "self": true, "responseStatus": null}]}
+        {"id": 7, "email": "pepe@gmail", "displayName" : "Pepito", "organizer": true, "self": true, "responseStatus": null}], "status": "confirmed"}
 
         const TARGET = document.createElement('div')
 

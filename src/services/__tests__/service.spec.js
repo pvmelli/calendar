@@ -19,7 +19,7 @@ describe ("Setting and getting events", () => {
     "start": "2020-04-27T22:43:52.214Z", "end": "2020-04-27T23:43:52.214Z",
     "creator": {"id": 5}, "keyword": "32020-01-015",
     "startDay": "2020-04-27", "startHour": "22", "startMinutes": "43",
-    "endDay": "2020-04-27", "endHour": "23", "endMinutes": "43"}
+    "endDay": "2020-04-27", "endHour": "23", "endMinutes": "43", "status": "pending"}
 
     const NON_MATCHING_EVENT = {"id": 3, "created" : "2020-01-01",
     "start": "1920-04-27T22:43:52.214Z", "end": "1920-04-27T23:43:52.214Z",
@@ -29,7 +29,7 @@ describe ("Setting and getting events", () => {
     "start": "1920-04-27T22:43:52.214Z", "end": "1920-04-27T23:43:52.214Z",
     "creator": {"id": 5}, "keyword": "32020-01-015",
     "startDay": "1920-04-27", "startHour": "22", "startMinutes": "43",
-    "endDay": "1920-04-27", "endHour": "23", "endMinutes": "43"}
+    "endDay": "1920-04-27", "endHour": "23", "endMinutes": "43", "status": "pending"}
 
     const EVENTS_DATA_MOCK = [EVENT_WITHOUT_KEY_DATA, NON_MATCHING_EVENT]
     const EVENTS_DATA_MOCK_WITH_KEYS = [EVENT_WITH_KEY_DATA, NON_MATCHING_EVENT_WITH_KEY_DATA]
