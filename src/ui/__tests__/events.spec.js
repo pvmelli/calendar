@@ -4,7 +4,7 @@ import fixture from '../../__tests__/calendar.fixture.js'
 beforeEach(() => {
     jest.fn().mockClear() 
 });
-describe("Display events", () => {
+describe("Testea la visualización de eventos", () => {
 
     document.body.innerHTML = fixture;
 
@@ -45,18 +45,15 @@ describe("Display events", () => {
 
     $calendarContainer.appendChild($eventContainer);
 
-    test("Display multiple events", () => {    
+    test("Muestra múltiples eventos", () => {    
         const mockDisplaySingleEvent = jest.fn()
     
         displayEvents([EVENT_WITH_KEY_DATA, ALT_EVENT_WITH_KEY_DATA], mockDisplaySingleEvent)
-    });
 
-    test("Display multiple events without passing a callback", () => {    
-    
         displayEvents([EVENT_WITH_KEY_DATA, ALT_EVENT_WITH_KEY_DATA])
     });
 
-    test("Display single event", () => {
+    test("Muestra un único evento", () => {
         Element.prototype.addEventListener = jest.fn()
 
         displaySingleEvent(EVENT_WITH_KEY_DATA);
@@ -66,7 +63,7 @@ describe("Display events", () => {
         expect(Element.prototype.addEventListener).toHaveBeenCalledTimes(3)
     });
 
-    test("Display event details", () => {
+    test("Muestra los detalles de un evento", () => {
         Element.prototype.addEventListener = jest.fn()
         displaySingleEvent(ALT_EVENT_WITH_KEY_DATA); 
 
@@ -96,7 +93,7 @@ describe("Display events", () => {
 
     })
 
-    test("Display alternative event details", () => {
+    test("Muestra los detalles de eventos alternativos", () => {
         Element.prototype.addEventListener = jest.fn()
         displaySingleEvent(ALT_EVENT_WITH_KEY_DATA); 
 

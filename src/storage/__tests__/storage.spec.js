@@ -1,5 +1,5 @@
 import {saveEventsToLocalStorage, loadEventsFromLocalStorage} from '../storage.js'
-describe("Test storage", () => {
+describe("Testea el funcionamiento de Local Storage", () => {
     beforeEach(() => {
         jest.spyOn(Storage.prototype, 'setItem')
     });
@@ -8,7 +8,7 @@ describe("Test storage", () => {
         localStorage.setItem.mockRestore()
     })
     
-    test("Error loading from local storage", () => {
+    test("Errores al cargar los eventos de Local Storage", () => {
     
         expect(() => {
             loadEventsFromLocalStorage(['2020-07-20']);
@@ -16,12 +16,12 @@ describe("Test storage", () => {
     
     })
     
-    test("Saving to local storage", () => {
+    test("Guardando eventos en Local Storage", () => {
         saveEventsToLocalStorage('2020-06-03', {id:1});
         expect(localStorage.setItem).toHaveBeenCalledWith('2020-06-03', JSON.stringify({id:1}))
     });
     
-    test("Successfully loading from local storage", () => {
+    test("Cargando eventos de Local Storage", () => {
         saveEventsToLocalStorage('2020-06-03', {id: 1, startDay: '2020-06-04'});
     
         expect(loadEventsFromLocalStorage(['2020-06-04'])).toEqual([{id: 1, startDay: '2020-06-04'}])

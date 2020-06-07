@@ -2,7 +2,7 @@ import {manageWeeklyView, manageCalendarCreation} from '../calendar.js'
 import fixture from '../../__tests__/calendar.fixture.js'
 
 
-describe ("Test the calendar", () => {
+describe ("Testea el calendario", () => {
     const EVENT_WITH_KEY_DATA = {"id": 3, "created" : "2020-01-01",
     "start": "2020-04-27T22:43:52.214Z", "end": "2020-04-27T23:43:52.214Z",
     "creator": {"id": 5}, "keyword": "32020-01-015",
@@ -11,7 +11,7 @@ describe ("Test the calendar", () => {
 
     const WEEKDAYS = ['2020-04-27', '2020-04-28', '2020-04-29', '2020-04-30', '2020-05-01', '2020-05-02'];
 
-    test("Manage weekly view", () => {
+    test("Testea la vista semanal", () => {
         document.body.innerHTML = fixture;  
         const mockGetWeekdays = jest.fn()
         .mockReturnValue(WEEKDAYS);

@@ -2,7 +2,7 @@ import Events from '../events.js';
 import Creator from '../creator.js';
 import Attendees from '../attendees.js';
 
-test ("Test classes", () => {
+test ("Testea las clases", () => {
     const EVENT_WITH_KEY_DATA = {"id": 3, "created" : "2020-01-01", "updated" : "2020-01-01",
     "summary" : "event", "description" : "test description", "color" : "#0000ff",
     "start": "2020-04-27T22:43:52.214Z", "end": "2020-04-27T23:43:52.214Z",
@@ -25,7 +25,6 @@ test ("Test classes", () => {
         expect(creatorTest.email).toEqual(EVENT_WITH_KEY_DATA.creator.email);
 
         const AtteendeeTest = new Attendees(EVENT_WITH_KEY_DATA.attendees[0]);
-        console.log(AtteendeeTest);
         expect(AtteendeeTest.email).toEqual(EVENT_WITH_KEY_DATA.attendees[0].email);
 
         const eventTest = new Events(EVENT_WITH_KEY_DATA, creatorTest, [AtteendeeTest]);
