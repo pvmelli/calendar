@@ -56,6 +56,24 @@ input {
     height: 40px;
 }
 
+#new-button-container {
+    text-align: right;
+    padding-right: 90px;
+}
+
+#new-button-container button {
+    background-color: #43bbef;
+    color: white;
+    font-weight: bold;
+    border: none;
+}
+
+#new-button-container button:hover {
+    background-color: #23272b;
+    color: white;
+    border: none;
+}
+
 #calendar-container{
     background-color: white;
     border-radius: 8px;
