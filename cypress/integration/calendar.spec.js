@@ -8,7 +8,7 @@ before(() => {
         fetchPolyfill = response.body;
     });
 
-    cy.visit('http://192.168.0.31:8080/', {
+    cy.visit('localhost:8080', {
         onBeforeLoad(contentWindow) {
             delete contentWindow.fetch;
             contentWindow.eval(fetchPolyfill);
@@ -17,8 +17,8 @@ before(() => {
     });
 });
 
-describe ('Verifies the page is loading correctly', () => {
-    it ('Verifies the events and calendar are loading', () => {
+describe ('Verifica que la página se cargue correctamente', () => {
+    it ('Verifica que el calendario y los eventos se carguen', () => {
         cy.server();
         cy.route('./src/services/events.json', 'fixture:events')
         .as('obtainEvents');
@@ -44,7 +44,7 @@ describe ('Verifies the page is loading correctly', () => {
         
     });
 
-    it('Verifies week can be changed', () => {
+    it('Verifica que la semana pueda cambiarse', () => {
         cy.server();
         cy.route('./src/services/events.json', 'fixture:events')
         .as('obtainEvents');
@@ -81,7 +81,7 @@ describe ('Verifies the page is loading correctly', () => {
 
     })
 
-    it('Verifies event details can be shown and hidden later', () => {
+    it('Verifica que los detalles de un evento pueden mostrarse y esconderse', () => {
         cy.server();
         cy.route('./src/services/events.json', 'fixture:events')
         .as('obtainEvents');
@@ -140,9 +140,9 @@ describe ('Verifies the page is loading correctly', () => {
     })
 });
 
-describe('Verifies events can be modified', () => {
+describe('Verifica que los eventos pueden ser modificados', () => {
 
-    it('Verifies the summary of an event can be changed', () => {
+    it('Verifica que el titulo de un evento pueda ser modificado', () => {
         cy.get('#summary-modif').clear().type('test')
         cy.get('#event-information button').click()
 
@@ -150,7 +150,7 @@ describe('Verifies events can be modified', () => {
         cy.get('[data-hour=2020-04-27-22]').find('.event').find('.fa-cog').click()
         cy.get('#summary-modif').should('have.value', 'test')
     })
-    it('Verifies the starting time of an event can be changed', () => {
+    it('Verifica que la fecha de comienzo de un evento pueda ser modificada', () => {
         cy.get('.duration-container>input').eq(4).clear().type(28)
         cy.get('.duration-container>input').eq(6).clear().type(9)
         cy.get('.duration-container>input').eq(14).clear().type(28)
@@ -161,7 +161,7 @@ describe('Verifies events can be modified', () => {
         cy.get('[data-hour=2020-04-28-9]').find('.event').find('.fa-cog').click()
   
     })
-    it('Verifies the description of an event can be changed', () => {
+    it('Verifica que la descripcion de un evento pueda ser modificada', () => {
         cy.get('#description-modif').clear().type('test description')
         cy.get('#event-information button').click()
 
@@ -171,7 +171,7 @@ describe('Verifies events can be modified', () => {
         
 
     })
-    it('Verifies the response status of the user can be changed', () => {
+    it('Verifica que el usuario pueda marcar si asistira al evento', () => {
         cy.get('#close-modal-button').click()
         cy.get('#week-input').type('2020-W17')
         cy.get('[data-hour=2020-04-26-22]').find('.event').find('.fa-cog').click()
@@ -184,7 +184,7 @@ describe('Verifies events can be modified', () => {
         cy.get('#close-modal-button').click()
     })
 
-    it('Verifies the event can be marked as confirmed', () => {
+    it('Verifica que el evento pueda marcarse como confirmado', () => {
         cy.get('[data-hour=2020-04-26-22]').find('.event').find('.fa-check-square-o').click()
 
         cy.get('[data-hour=2020-04-26-22]').find('.event').should('have.attr', 'style', 'background-color: rgb(67, 187, 239);')
@@ -195,7 +195,7 @@ describe('Verifies events can be modified', () => {
         cy.get('#close-modal-button').click()
 
     })
-    it('Verifies the event can be marked as cancelled', () => {
+    it('Verifica que el evento pueda marcarse como cancelado', () => {
         cy.get('[data-hour=2020-04-26-22]').find('.event').find('.fa-trash-o').click()
         cy.get('[data-hour=2020-04-26-22]').find('.event').should('have.attr', 'style', 'background-color: rgb(160, 160, 160);')
         cy.get('[data-hour=2020-04-26-22]').find('.event').find('.fa-cog').click()

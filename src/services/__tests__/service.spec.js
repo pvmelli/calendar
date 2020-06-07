@@ -1,7 +1,7 @@
 import {getEvents, addKeyData} from '../service.js'
 import {saveEventsToLocalStorage} from '../../storage/storage.js'
 
-describe ("Setting and getting events", () => {
+describe ("Busca y setea los eventos", () => {
     beforeEach(() => {
         jest.spyOn(Storage.prototype, 'setItem');
         jest.fn().mockClear() 
@@ -34,7 +34,7 @@ describe ("Setting and getting events", () => {
     const EVENTS_DATA_MOCK = [EVENT_WITHOUT_KEY_DATA, NON_MATCHING_EVENT]
     const EVENTS_DATA_MOCK_WITH_KEYS = [EVENT_WITH_KEY_DATA, NON_MATCHING_EVENT_WITH_KEY_DATA]
 
-    test("Getting events from the API", async () => {
+    test("Busca los eventos de la API", async () => {
         const loadfromApiMock = jest.fn()
         .mockReturnValue(Promise.resolve(EVENTS_DATA_MOCK))
         const saveToLocalStorageMock = jest.fn();
@@ -53,7 +53,7 @@ describe ("Setting and getting events", () => {
 
     });
 
-    test("Getting events from Local Storage", async () => {
+    test("Busca los eventos en Local Storage", async () => {
         const mockLoading = jest.fn()
         .mockReturnValue(Promise.resolve(EVENTS_DATA_MOCK))
         const saveToLocalStorageMock = jest.fn();
@@ -68,7 +68,7 @@ describe ("Setting and getting events", () => {
 
     });
 
-    test("Setting event key data", () => {
+    test("Setea propiedades clave de los eventos", () => {
         expect(addKeyData(EVENT_WITHOUT_KEY_DATA)).toEqual(EVENT_WITH_KEY_DATA);
     });
 

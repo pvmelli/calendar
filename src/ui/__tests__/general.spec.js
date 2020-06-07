@@ -2,13 +2,13 @@ import {getSelectedWeek, closeModal} from '../general.js';
 import calendarFixture from '../../__tests__/calendar.fixture.js';
 import modalFixture from '../../__tests__/modal.fixture.js';
 
-test("Get week selected in week input", () => {
+test("Busca la semana seleccionada por el usuario", () => {
     document.body.innerHTML = calendarFixture;
 
     expect(getSelectedWeek()).toEqual(["17", "2020"])
 })
 
-test("Close modal", () => {
+test("Cierra el cartel con los detalles del evento", () => {
     document.body.innerHTML = modalFixture;
 
     const modal = document.querySelector('#event-modal')

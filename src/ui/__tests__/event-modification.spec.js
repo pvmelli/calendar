@@ -1,7 +1,7 @@
 import {cancelEvent, markEventAsConfirmed, modifyEventItem} from '../event-modification.js';
 import fixture from '../../__tests__/modal.fixture.js'
 
-describe("Modify events", () => {
+describe("Testea la modificación de eventos", () => {
 
     beforeEach(() => {
         jest.spyOn(Storage.prototype, 'setItem')
@@ -24,7 +24,7 @@ describe("Modify events", () => {
     {"id": 6, "email": "pepe@gmail", "displayName" : "Pepito", "organizer": false, "self": true, "responseStatus": true},
     {"id": 7, "email": "pepe@gmail", "displayName" : "Pepito", "organizer": true, "self": true, "responseStatus": null}]}
 
-    test("Mark event as cancelled", () => {
+    test("Marcar eventos como cancelados", () => {
 
         const CANCELLED_EVENT = {"id": 3, "created" : "2020-01-01", "updated" : "2020-01-01",
         "summary" : "event", "description" : "test description", "color" : "#A0A0A0",
@@ -55,7 +55,7 @@ describe("Modify events", () => {
         expect(localStorage.setItem).toHaveBeenCalledWith(`${EVENT_WITH_KEY_DATA.keyword}`, `${JSON.stringify(CANCELLED_EVENT)}`)
     })
 
-    test("Mark event as confirmed", () => {
+    test("Marcar eventos como confirmados", () => {
         const CONFIRMED_EVENT = {"id": 3, "created" : "2020-01-01", "updated" : "2020-01-01",
         "summary" : "event", "description" : "test description", "color" : "#43bbef",
         "start": "2020-04-27T22:43:52.214Z", "end": "2020-04-27T23:43:52.214Z",
@@ -85,7 +85,7 @@ describe("Modify events", () => {
         expect(localStorage.setItem).toHaveBeenCalledWith(`${EVENT_WITH_KEY_DATA.keyword}`, `${JSON.stringify(CONFIRMED_EVENT)}`)
     })
 
-    test("Modify event details", () => {
+    test("Modificar los detalles de un evento", () => {
         document.body.innerHTML = fixture;
         const { location } = window;
         delete window.location;

@@ -1,6 +1,6 @@
 import {loadAllEventsFromApi} from '../api.js';
 
-test ('Load data from api', () => {
+test ('Carga datos de la api', () => {
     global.fetch = jest.fn();
     global.fetch.mockImplementation(() => new Promise((resolve) => {
         const jsonPromise = new Promise((r) => {

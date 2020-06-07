@@ -4,7 +4,7 @@ beforeEach(() => {
     jest.fn().mockClear() 
 });
 
-test("Get starting date of an ISO Week", () => {
+test("Busca el día inicial de una semana en formato ISO", () => {
     Date.prototype.getDay = jest.fn()
     .mockReturnValueOnce(3).mockReturnValueOnce(3)
     .mockReturnValueOnce(6).mockReturnValueOnce(6);
@@ -26,7 +26,7 @@ test("Get starting date of an ISO Week", () => {
     expect(secondResult).toMatchObject(new Date('2020-05-10T03:00:00.000Z'));
 })
 
-test("Get an array with all days of a week", () => {
+test("Genera un array con todos los días de una semana", () => {
     Date.prototype.getDate = jest.fn()
     .mockReturnValue(22);
 

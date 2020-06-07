@@ -5,7 +5,7 @@ beforeEach(() => {
     jest.spyOn(Function.prototype, 'call')
 });
 
-test("The initial event listeners are assigned", () => {
+test("Asigna event listeners e inicializa el calendario", () => {
     document.body.innerHTML = fixture;
     Element.prototype.addEventListener = jest.fn();
 
