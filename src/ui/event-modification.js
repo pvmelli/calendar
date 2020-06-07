@@ -5,6 +5,7 @@ export function cancelEvent(e) {
     $event.style.backgroundColor = '#A0A0A0';
     const eventObj = JSON.parse($event.getAttribute('data-obj'));
     eventObj.color = '#A0A0A0';
+    eventObj.status = 'cancelled';
     $event.dataset.obj = `${JSON.stringify(eventObj)}`;
     $event.dataset.status = 'cancelled';
 
@@ -18,6 +19,7 @@ export function markEventAsConfirmed(e) {
     $event.style.backgroundColor = '#43bbef';
     const eventObj = JSON.parse($event.getAttribute('data-obj'));
     eventObj.color = '#43bbef';
+    eventObj.status = 'confirmed';
     $event.dataset.obj = `${JSON.stringify(eventObj)}`;
     $event.dataset.status = 'confirmed';
 

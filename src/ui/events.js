@@ -30,7 +30,7 @@ export function displaySingleEvent(event) {
     $event.dataset.keyword = `${event.keyword}`
     $event.dataset.origStart = `${event.start}`
     $event.dataset.duration = `${event.startDay} at ${event.startHour}:${event.startMinutes} TO ${event.endDay} at ${event.endHour}:${event.endMinutes}`
-    $event.dataset.status = 'pending';
+    $event.dataset.status = `${event.status}`;
     $event.dataset.obj = `${JSON.stringify(event)}`;
 
     displayEventButtons($event)    
@@ -90,6 +90,7 @@ export function createEventInfoBox(event) {
     $infoBox.appendChild($title);
 
     const $status = document.createElement('strong');
+    $status.setAttribute('id', 'event-status')
     $status.classList.add('text-muted')
     $status.innerText = `Status: ${event.getAttribute('data-status')}`
     $infoBox.appendChild($status);

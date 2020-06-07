@@ -29,6 +29,7 @@ export function addKeyData (event) {
     event.endDay = event.end.slice(0,10);
     event.endHour = event.end.slice(11,13);
     event.endMinutes = event.end.slice(14,16);
+    event.status = 'pending';
 
     return event;
 };
