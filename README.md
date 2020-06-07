@@ -46,7 +46,7 @@ Por favor asegúrese de no cerrar la terminal. Si lo hace, la aplicación no pod
 
 ### Abrir la aplicación
 
-Visite el sitio `localhost:8080` en su navegador. Al hacerlo, debería ver lo siguiente:
+Visite el sitio `localhost:8080/index.html` en su navegador. Al hacerlo, debería ver lo siguiente:
 
 ![Calendario](https://i.imgur.com/oynFl03.png "Calendario")
 
