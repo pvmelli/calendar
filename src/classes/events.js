@@ -15,6 +15,7 @@ export default class Events {
         this.endDay = eventData.endDay;
         this.endHour = eventData.endHour;
         this.endMinutes = eventData.endMinutes;
+        this.status = eventData.status;
         this.creator = creatorData;
         this.attendees = attendeesData;
     }
