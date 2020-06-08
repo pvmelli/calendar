@@ -8,7 +8,7 @@ before(() => {
         fetchPolyfill = response.body;
     });
 
-    cy.visit('localhost:8080', {
+    cy.visit('localhost:8080/index.html', {
         onBeforeLoad(contentWindow) {
             delete contentWindow.fetch;
             contentWindow.eval(fetchPolyfill);
