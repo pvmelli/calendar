@@ -43,7 +43,7 @@ export function modifyEventItem(e) {
     const newDescription = document.querySelector('#description-modif').value;
     eventObj.description = newDescription;
 
-    const durationInputs = document.querySelectorAll('.date-control');
+    const durationInputs = document.querySelectorAll('#event-information .date-control');
     const newDuration = [];
     durationInputs.forEach(input => {
         if(input.value === 'at' || input.value === 'TO'){
@@ -66,7 +66,7 @@ export function modifyEventItem(e) {
     eventObj.endMinutes = newDuration[18];
 
 
-    if(document.querySelector('.custom-radio') !== null){
+    if(document.querySelector('#event-information .custom-radio') !== null){
         eventObj.attendees.forEach((attendee) => {
             if(attendee.self && document.querySelector('#yes-radio').checked){
                 attendee.responseStatus = true;
