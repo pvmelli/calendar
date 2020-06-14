@@ -21,9 +21,9 @@ export function loadEventsFromLocalStorage() {
         localStorageEntries.push(value);
     };
 
-    console.log(localStorageEntries);
+    
     const events = localStorageEntries.filter(entry => entry.summary !== undefined && entry.start !== undefined);
-    console.log(events);
+    
 
     if(events.length === 0) {
         throw new Error(`Events couldn't be found`);
