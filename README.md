@@ -57,7 +57,7 @@ Visite el sitio `localhost:8080/index.html` en su navegador. Al hacerlo, deberí
  
  ![Calendario error](https://i.imgur.com/Kr8C4WG.png "Calendario error")
 
- Si el calendario no muestra eventos al iniciarse, asegúrese de que su Local Storage no esté lleno. Para vaciarlo, puede seguir estos pasos:
+ Si el calendario no muestra eventos al iniciarse, asegúrese de que su Local Storage esté vacío. Para vaciarlo, puede seguir estos pasos:
  * Presione F12. Aparecerá ante usted la consola.
  * Si desea, puede escribir allí `localStorage.clear()` y presionar enter.
  * Si prefiere no llevar a cabo el paso anterior, diríjase a la pestaña "Application" y busque allí la opción "Clear Storage", clickeela.
