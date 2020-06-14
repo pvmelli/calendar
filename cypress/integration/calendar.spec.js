@@ -8,7 +8,7 @@ before(() => {
         fetchPolyfill = response.body;
     });
 
-    cy.visit('localhost:8080', {
+    cy.visit('localhost:8080/index.html', {
         onBeforeLoad(contentWindow) {
             delete contentWindow.fetch;
             contentWindow.eval(fetchPolyfill);
@@ -116,7 +116,7 @@ describe ('Verifica que la página se cargue correctamente', () => {
             .and('have.descendants', 'button')
         cy.get('#summary-modif').should('have.value', 'Evento 1')
         cy.get('#event-status').should('have.text', 'Status: pending')
-        cy.get('.duration-container').find('input').should('have.length', 19)
+        cy.get('#event-information').find('.duration-container').find('input').should('have.length', 19)
         cy.get('#description-modif').should('have.value', 'Descripción prolongada del evento 1')
         cy.get('.creation-info').find('.col').should('have.length', 2)
         cy.get('.creation-info').find('li').should('have.length', 2)
@@ -143,7 +143,7 @@ describe ('Verifica que la página se cargue correctamente', () => {
             .and('have.descendants', 'button')
         cy.get('#summary-modif').should('have.value', 'Evento 2')
         cy.get('#event-status').should('have.text', 'Status: pending')
-        cy.get('.duration-container').find('input').should('have.length', 19)
+        cy.get('#event-information').find('.duration-container').find('input').should('have.length', 19)
         cy.get('#description-modif').should('have.value', 'Descripción prolongada del evento 2')
         cy.get('.creation-info').find('.col').should('have.length', 2)
         cy.get('.creation-info').find('li').should('have.length', 2)
@@ -165,10 +165,10 @@ describe('Verifica que los eventos pueden ser modificados', () => {
         cy.get('#summary-modif').should('have.value', 'test')
     })
     it('Verifica que la fecha de comienzo de un evento pueda ser modificada', () => {
-        cy.get('.duration-container>input').eq(4).clear().type(28)
-        cy.get('.duration-container>input').eq(6).clear().type(9)
-        cy.get('.duration-container>input').eq(14).clear().type(28)
-        cy.get('.duration-container>input').eq(16).clear().type(10)
+        cy.get('#event-information>.duration-container>input').eq(4).clear().type(28)
+        cy.get('#event-information>.duration-container>input').eq(6).clear().type(9)
+        cy.get('#event-information>.duration-container>input').eq(14).clear().type(28)
+        cy.get('#event-information>.duration-container>input').eq(16).clear().type(10)
 
         cy.get('#event-information button').click()
         cy.get('#week-input').type('2020-W18')
@@ -215,8 +215,95 @@ describe('Verifica que los eventos pueden ser modificados', () => {
         cy.get('[data-hour=2020-04-26-22]').find('.event').find('.fa-cog').click()
         
         cy.get('#event-information').find('strong').contains('Status: cancelled');
+        cy.get('#close-modal-button').click()
     })
 
-})
+});
+
+describe('Verifica que puedan crearse eventos y luego ser modificados', () => {
+    it('El modal para crear eventos puede ser abierto', () => {
+        cy.get('#new-event-modal').should('have.class', 'not-display')
+        cy.get('#new-event-button').click();
+        cy.get('#new-event-modal').should('not.have.class', 'not-display')
+    });
+
+    it('Las opciones y verificación del formulario para crear eventos funcionan correctamente', () => {
+        cy.get('#create-button').should('be.disabled');
+        cy.get('#new-event-modal').find('.modal-form').find('input').should('have.length', 25)
+        cy.get('#new-event-modal').find('.modal-form').find('button').should('have.length', 3)
+
+        cy.get('#new-summary').clear().type('Test A');
+        cy.get('#create-button').should('be.disabled');
+        cy.get('#new-description').clear().type('Descripcion del test A');
+        cy.get('#create-button').should('be.disabled');
+
+        cy.get('#new-event-modal').find('.new-date').eq(1).clear().type('04');
+        cy.get('#new-event-modal').find('.new-date').eq(2).clear().type('20');
+        cy.get('#new-event-modal').find('.new-date').eq(3).clear().type('16');
+        cy.get('#new-event-modal').find('.new-date').eq(4).clear().type('40');
+        cy.get('#new-event-modal').find('.new-date').eq(6).clear().type('04');
+        cy.get('#new-event-modal').find('.new-date').eq(7).clear().type('20');
+        cy.get('#new-event-modal').find('.new-date').eq(8).clear().type('17');
+        cy.get('#new-event-modal').find('.new-date').eq(9).clear().type('40');
+        cy.get('#create-button').should('be.disabled');
+
+        cy.get('#organizer-info').find('[type="radio"]').first().check();
+        cy.get('#create-button').should('be.disabled');
+
+        cy.get('#new-event-modal').trigger('mouseover');
+        cy.get('#create-button').should('not.be.disabled');
+
+        cy.get('#invite-button').click();
+            cy.get('.new-person').should('have.length', 1);
+            cy.get('.new-person').find('input').should('have.length', 3);
+
+            cy.get('#new-event-modal').trigger('mouseover');
+            cy.get('#create-button').should('be.disabled');
+
+        cy.get('#invite-button').click();
+            cy.get('.new-person').should('have.length', 2);
+            cy.get('.new-person').find('input').should('have.length', 6);
+
+        cy.get('#erase-invite-button').click();
+            cy.get('.new-person').should('have.length', 1);
+            cy.get('.new-person').find('input').should('have.length', 3);
+        
+        cy.get('.new-person-id').first().clear().type('123');
+        cy.get('.new-person-name').first().clear().type('Test');
+        cy.get('.new-person-email').first().clear().type('test@gmail.com');
+        cy.get('#new-event-modal').trigger('mouseover');
+        cy.get('#create-button').should('not.be.disabled');
+
+    });
+
+    it('Un evento puede crearse y, por tanto, registrarse en el calendario', () => {
+        cy.get('#create-button').click();
+
+        cy.get('[data-hour=2020-04-20-16]').find('.event').find('.fa-cog').click();
+
+        cy.get('#summary-modif').should('have.value', 'Test A');
+        cy.get('#event-status').should('have.text', 'Status: pending');
+        cy.get('#event-information').find('.duration-container').find('input').should('have.length', 19);
+        cy.get('#description-modif').should('have.value', 'Descripcion del test A');
+        cy.get('.creation-info').find('.col').should('have.length', 2);
+        cy.get('.creation-info').find('li').should('have.length', 2);
+        cy.get('.attendee-box').find('.person').should('have.length', 2);
+        cy.get('.attendee-box').find('.person').find('.custom-radio').should('have.length', 2);
+    });
+
+    it('El evento creado puede ser modificado como los demas', () => {
+        cy.get('#event-information>.duration-container>input').eq(4).clear().type(28);
+        cy.get('#event-information>.duration-container>input').eq(6).clear().type(9);
+        cy.get('#event-information>.duration-container>input').eq(14).clear().type(28);
+        cy.get('#event-information>.duration-container>input').eq(16).clear().type(10);
+        cy.get('#no-radio').check();
+
+        cy.get('#event-information button').click();
+        cy.get('#week-input').type('2020-W18');
+        cy.get('[data-hour=2020-04-28-9]').find('.event').find('.fa-cog').click();
+        cy.get('#summary-modif').should('have.value', 'Test A');
+        cy.get('.attendee-box').find('strong').contains('You were invited!').siblings('p').contains('Invitation rejected');
+    });
+});
 
 
