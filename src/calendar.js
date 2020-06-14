@@ -1,11 +1,15 @@
 import {showInstructions} from './ui/general.js';
 import {manageWeeklyView, getWeekDays} from './ui/calendar.js';
-import {getEvents} from './services/service.js';
+import {manageFirstVisitToken, getEvents} from './services/service.js';
 import {showNewEventModal} from './ui/new-event.js'
 
 export function initialize() {
 
-    showInstructions();
+    const isFirstVisit = manageFirstVisitToken();
+
+    if(isFirstVisit === 'This is the first visit'){
+        showInstructions();
+    }    
 
     manageWeeklyView(getWeekDays, getEvents)
 
