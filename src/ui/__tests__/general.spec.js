@@ -18,15 +18,6 @@ test("Muestra las instrucciones si el Local Storage esta vacio", () => {
     expect($instructions.getAttribute('class')).toEqual(expect.stringContaining('not-display'));
     expect(Element.prototype.addEventListener).toHaveBeenCalledTimes(1)
     expect(Element.prototype.addEventListener).toHaveBeenCalledWith(expect.stringContaining("click"), expect.any(Function))
-
-    localStorage.setItem('test', {"test":"test"})
-
-    expect(showInstructions()).toBe('This is not your fist time visiting this page')
-
-    expect($instructions.getAttribute('class')).toEqual(expect.stringContaining('not-display'));
-    expect(Element.prototype.addEventListener).toHaveBeenCalledTimes(1)
-
-    localStorage.setItem.mockRestore()
 });
 
 test("Busca la semana seleccionada por el usuario", () => {

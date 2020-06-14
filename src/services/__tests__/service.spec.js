@@ -11,21 +11,21 @@ describe ("Busca y setea los eventos", () => {
         localStorage.setItem.mockRestore()
     })
 
-    const EVENT_WITHOUT_KEY_DATA = {"id": 3, "created" : "2020-01-01",
+    const EVENT_WITHOUT_KEY_DATA = {"id": 3, "summary": "test", "created" : "2020-01-01",
     "start": "2020-04-27T22:43:52.214Z", "end": "2020-04-27T23:43:52.214Z",
     "creator": {"id": 5}}
 
-    const EVENT_WITH_KEY_DATA = {"id": 3, "created" : "2020-01-01",
+    const EVENT_WITH_KEY_DATA = {"id": 3, "summary": "test", "created" : "2020-01-01",
     "start": "2020-04-27T22:43:52.214Z", "end": "2020-04-27T23:43:52.214Z",
     "creator": {"id": 5}, "keyword": "32020-01-015",
     "startDay": "2020-04-27", "startHour": "22", "startMinutes": "43",
     "endDay": "2020-04-27", "endHour": "23", "endMinutes": "43", "status": "pending"}
 
-    const NON_MATCHING_EVENT = {"id": 3, "created" : "2020-01-01",
+    const NON_MATCHING_EVENT = {"id": 3, "summary": "test", "created" : "2020-01-01",
     "start": "1920-04-27T22:43:52.214Z", "end": "1920-04-27T23:43:52.214Z",
     "creator": {"id": 5}}
     
-    const NON_MATCHING_EVENT_WITH_KEY_DATA = {"id": 3, "created" : "2020-01-01",
+    const NON_MATCHING_EVENT_WITH_KEY_DATA = {"id": 3, "summary": "test", "created" : "2020-01-01",
     "start": "1920-04-27T22:43:52.214Z", "end": "1920-04-27T23:43:52.214Z",
     "creator": {"id": 5}, "keyword": "32020-01-015",
     "startDay": "1920-04-27", "startHour": "22", "startMinutes": "43",
@@ -54,7 +54,7 @@ describe ("Busca y setea los eventos", () => {
     });
 
     test("Busca los eventos en Local Storage", async () => {
-        const mockLoading = jest.fn()
+        const mockLoadingFromApi = jest.fn()
         .mockReturnValue(Promise.resolve(EVENTS_DATA_MOCK))
         const saveToLocalStorageMock = jest.fn();
 
@@ -62,9 +62,9 @@ describe ("Busca y setea los eventos", () => {
 
         saveEventsToLocalStorage(EVENT_WITH_KEY_DATA.keyword, EVENT_WITH_KEY_DATA);
 
-        expect(await getEvents(['2020-06-04', '2020-04-27'], mockLoading, saveToLocalStorageMock)).toEqual([EVENT_WITH_KEY_DATA])
+        expect(await getEvents(['2020-06-04', '2020-04-27'], mockLoadingFromApi, saveToLocalStorageMock)).toEqual([EVENT_WITH_KEY_DATA])
         expect(saveToLocalStorageMock).toBeCalledTimes(0);
-        expect(mockLoading).toBeCalledTimes(0);
+        expect(mockLoadingFromApi).toBeCalledTimes(0);
 
     });
 

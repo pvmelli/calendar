@@ -22,8 +22,8 @@ describe("Testea el funcionamiento de Local Storage", () => {
     });
     
     test("Cargando eventos de Local Storage", () => {
-        saveEventsToLocalStorage('2020-06-03', {id: 1, startDay: '2020-06-04'});
+        saveEventsToLocalStorage('2020-06-03', {"id": 1, "summary": "test", "start": "2020-06-04", "startDay": '2020-06-04'});
     
-        expect(loadEventsFromLocalStorage(['2020-06-04'])).toEqual([{id: 1, startDay: '2020-06-04'}])
+        expect(loadEventsFromLocalStorage(['2020-06-04'])).toEqual([{"id": 1, "summary": "test", "start": "2020-06-04", "startDay": '2020-06-04'}])
     });
 })
