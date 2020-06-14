@@ -19,9 +19,9 @@ export function showNewEventModal() {
 
     const $createEvent = document.querySelector('#create-button');
     $createEvent.addEventListener('click', createAnEvent);
-}
+};
 
-function verifyNewEvent() {
+export function verifyNewEvent() {
     const $form = document.querySelector('#new-event-modal form');
     const $createButton = document.querySelector('#create-button');
 
@@ -30,14 +30,14 @@ function verifyNewEvent() {
     }else {
         $createButton.disabled = true;
     }
-}
+};
 
-function closeNewEvent() {
+export function closeNewEvent() {
     const $newEventModal = document.querySelector('#new-event-modal');
     $newEventModal.classList.add('not-display');
-}
+};
 
-function addAnAttendeeBox() {
+export function addAnAttendeeBox() {
     const $attendeesContainer = document.querySelector('#attendees-insert');
 
     const $singlePerson = document.createElement('div');
@@ -71,12 +71,12 @@ function addAnAttendeeBox() {
     $attendeesContainer.appendChild($singlePerson);
 }
 
-function eraseAnAttendeeBox() {
+export function eraseAnAttendeeBox() {
     const $attendeesContainer = document.querySelector('#attendees-insert');
-    $attendeesContainer.lastChild.remove()
+    $attendeesContainer.lastChild.remove();
 }
 
-function createAnEvent () {
+export function createAnEvent () {
     const defaultCreator = {"id": "000", "email": "you@mail.com", "displayName": "You", "self" : true}
     const creator = new Creator(defaultCreator);
     const defaultAttendeeYou = {"id": creator.id, "displayName": creator.displayName, "email": creator.email, 
