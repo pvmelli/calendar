@@ -2,15 +2,8 @@ import {showInstructions, getSelectedWeek, closeModal} from '../general.js';
 import calendarFixture from '../../__tests__/calendar.fixture.js';
 import modalFixture from '../../__tests__/modal.fixture.js';
 
-/*beforeEach(() => {
-    jest.spyOn(Storage.prototype, 'setItem')
-});
-
-afterEach(() => {
-    localStorage.setItem.mockRestore()
-})*/
-
 test("Muestra las instrucciones si el Local Storage esta vacio", () => {
+    jest.spyOn(Storage.prototype, 'setItem')
     document.body.innerHTML = calendarFixture;
     Element.prototype.addEventListener = jest.fn();    
     const $instructions = document.querySelector('#instructions');
@@ -32,19 +25,9 @@ test("Muestra las instrucciones si el Local Storage esta vacio", () => {
 
     expect($instructions.getAttribute('class')).toEqual(expect.stringContaining('not-display'));
     expect(Element.prototype.addEventListener).toHaveBeenCalledTimes(1)
+
+    localStorage.setItem.mockRestore()
 });
-
-
-/* export function showInstructions() {
-
-    if(localStorage.length === 0) {
-        const $instructions = document.querySelector('#instructions');
-        $instructions.classList.remove('not-display');
-    
-        const $closeInstructionsButton = document.querySelector('#close-instructions-button');
-        $closeInstructionsButton.addEventListener('click', () => {$instructions.classList.add('not-display')})
-    }
-} */
 
 test("Busca la semana seleccionada por el usuario", () => {
     document.body.innerHTML = calendarFixture;

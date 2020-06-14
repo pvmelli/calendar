@@ -14,10 +14,11 @@ test("Asigna event listeners e inicializa el calendario", () => {
     expect(Function.prototype.call).toHaveBeenCalledTimes(3);
     expect(document.querySelector('#calendar-container .day-table')).toBeDefined()
 
-    expect(Element.prototype.addEventListener).toHaveBeenCalledTimes(2);
+    expect(Element.prototype.addEventListener).toHaveBeenCalledTimes(3);
     expect(Element.prototype.addEventListener.mock.calls).toEqual([
         [expect.stringContaining("click"), expect.any(Function)],
         [expect.stringContaining("input"), expect.any(Function)],
+        [expect.stringContaining("click"), expect.any(Function)],
       ]);
     
 

@@ -10,15 +10,21 @@ body {
     margin-left: 6px;
 }
 
-#close-instructions-button {
-    border: none;
-    background-color: #43bbef;;
-    width: 40px;
-    font-family: monospace;
-    font-size: 25px;
+#new-button-container {
+    text-align: right;
+    margin-right: 70px;
+}
+
+#new-button-container button { 
+    background-color: #43bbef;
+    font-weight: bold;
     color: white;
-    margin-left: 85%;
-    padding-top: 0.3rem;
+}
+
+#new-button-container button:hover {
+    background-color: #23272b;
+    font-weight: bold;
+    color: white;
 }
 
 #instructions-container {
@@ -59,7 +65,7 @@ input {
 #calendar-container{
     background-color: white;
     border-radius: 8px;
-    margin: 10px 3% 20px 3%;
+    margin: 10px 2% 20px 2%;
     padding: 5px;
 }
 
@@ -114,11 +120,7 @@ input {
     height: 50px;
 }
 
-#modal-content form {
-    margin-top: 30px;
-}
-
-#close-modal-button {
+.modal-title button {
     border: none;
     background-color: #43bbef;;
     width: 40px;
@@ -129,13 +131,70 @@ input {
     padding-top: 0.3rem;
 }
 
+.modal-form {
+    margin-top: 30px;
+}
+
+.modal-form .main-input {
+    margin: 10px 0 10px 0;
+}
+
+.you-box {
+    background-color: #f2f2f2;
+    width: 45%;
+    height: 7rem;
+    display: inline-block;
+    padding: 20px 5px 5px 5px;
+    text-align: center;
+    border-radius: 5px;
+    margin: 10px 10px 10px 10px;
+}
+
+.radio-box {
+    padding: 0px 20% 0px 20%;
+}
+
+.radio-box input {
+    margin-left: 20px;
+}
+
+.radio-box label {
+    padding-top: 8px;
+    padding-left: 0.2rem;
+    font-size: 15px;
+}
+
+.new-person {
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    width: 80%;
+    margin: 10px 5px 10px 5px;
+
+}
+
+.new-person input {
+    display: inline;
+    margin: 5px 10px 5px 10px;
+}
+.new-person .new-person-id{
+    width: 4rem;
+}
+
+.new-person .new-person-name{
+    width: 10rem;
+}
+
+.modal-form button {
+    margin: 10px auto;
+    display: block;
+}
+
 .modal-content {
     background-color: #fefefe;
     margin: 10%;
     padding: 20px;
     border: 1px solid #43bbef;
     width: 450px;
-    height: 600px;
     text-align: left;
 }
 
@@ -183,20 +242,31 @@ input {
 
 .attendee-box{
     margin: 10px 5px 20px 5px;
-}
-
-.radio-label {
-    padding-top: 10px;
-    padding-left: 0.2rem;
-    font-size: 15px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .attendee-box .person {
     background-color: #f2f2f2;
     border-radius: 5px;
-    margin: 0px 5px 0px 5px;
+    width: 45%;
+    height: 8rem;
+    margin: 0px 5px 5px 5px;
     text-align: center;
+    padding-top: 1rem;
     padding-bottom: 0.2rem;
+}
+
+.person label {
+    margin-left: 6px;
+    margin-right: 10px;
+}
+
+.person input {
+    margin-left: -5px;
+    margin-right: 40px;
+    margin-top: 0px;
 }
 
 .separator {

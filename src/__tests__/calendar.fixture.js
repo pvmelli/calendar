@@ -4,7 +4,7 @@ export default `<div class="container-fluid">
     <div class="modal-title" id="instructions-title">
       <button id="close-instructions-button">x</button>
     </div>
-    <div id="instructions-content">
+    <div id="instructions-content" class="modal-form">
       <div class="instructions-box">
       <a class="fa fa-check-square-o"></a><p>Click on this icon to mark an event as <b>confirmed</b></p><br>
       </div>
@@ -18,6 +18,62 @@ export default `<div class="container-fluid">
   </div>
 </div>
 </div>
+
+<div class="container-fluid">
+<div class="event-modal not-display" id="new-event-modal">
+  <div class="modal-content" id="new-event-container">
+    <div class="modal-title" id="new-event-title">
+      <button id="close-new-event-button">x</button>
+    </div>
+<form id="new-event-content" class="modal-form">
+      <input type="text" id="new-summary" class="form-control  main-input" placeholder="Summary" required>
+      <textarea id="new-description" class="form-control  main-input" placeholder="Description" required></textarea>
+      <input type="color" id="new-color" class="form-control main-input">
+<div class="duration-container" id="new-duration">
+      <input type="number" class="form-control date-control new-date" value="2020" required><input class="date-control date-non" value="-" disabled="">
+      <input type="number" class="form-control date-control new-date" value="04" max="12" min="1" required><input class="date-control date-non" value="-" disabled="">
+      <input type="number" class="form-control date-control new-date" value="26" max="31" min="1" required><input class="date-control date-non" value="at" disabled="">
+      <input type="number" class="form-control date-control new-date" value="22" max="23" min="0" required><input class="date-control date-non" value=":" disabled="">
+      <input type="number" class="form-control date-control new-date" value="43" max="60" min="0" required><input class="date-control date-non" value="TO" disabled="">
+      <input type="number" class="form-control date-control new-date" value="2020" required><input class="date-control date-non" value="-" disabled="">
+      <input type="number" class="form-control date-control new-date" value="04" max="12" min="1" required><input class="date-control date-non" value="-" disabled="">
+      <input type="number" class="form-control date-control new-date" value="26" max="31" min="1" required><input class="date-control date-non" value="at" disabled="">
+      <input type="number" class="form-control date-control new-date" value="23" max="23" min="0" required><input class="date-control date-non" value=":" disabled="">
+      <input type="number" class="form-control date-control new-date" value="43" max="60" min="0" required>
+</div>
+<br>
+<div class="row">
+    <div class="you-box" id="organizer-info">
+          <h6>Are you the organizer?</h6>
+          <div class="row radio-box">
+            <input type="radio" id="yes-organizer" name="organizer" value="1" required>
+            <label for="yes-organizer">YES</label>
+            <input type="radio" id="no-organizer" name="organizer" value="">
+            <label for="no-organizer">NO</label>
+          </div>
+    </div>
+    <div class="you-box" id="attendance-info">
+          <h6>Will you attend?</h6>
+          <div class="row radio-box">
+            <input type="radio" id="yes-attend" name="attend" value="1">
+            <label for="yes-attend">YES</label>
+            <input type="radio" id="no-attend" name="attend" value="">
+            <label for="no-attend">NO</label>
+          </div>
+    </div>
+ </div>
+<br>
+  <div class="row">
+      <button type="button" class ="btn btn-dark" id="invite-button">Add attendee</button>
+      <button type="button" class ="btn btn-dark" id="erase-invite-button">Erase attendee</button>
+  </div>
+  <div id="attendees-insert">
+  </div>
+  <button type="button" class="btn btn-dark" id="create-button" disabled>CREATE</button></div>
+</form>
+
+</div>
+</div>
   
 <div class="container-fluid">
     <div class="event-modal not-display" id="event-modal">
@@ -25,7 +81,7 @@ export default `<div class="container-fluid">
         <div class="modal-title" id="event-modal-title">
             <button id="close-modal-button">x</button>
         </div> 
-        <div id="event-content">
+        <div id="event-content" class="modal-form">
         </div>
     </div>
   </div>
@@ -47,8 +103,8 @@ export default `<div class="container-fluid">
       </div>
 
       <div class="row">
-        <div class="col">
-
+        <div class="col" id="new-button-container">
+          <button class="btn" id="new-event-button">New event</button>
         </div>
           <div class="col-12">
               <div class="row" id="calendar-container">

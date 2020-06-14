@@ -156,19 +156,24 @@ export function createEventInfoBox(event) {
     const $attendeeBox = document.createElement('div');
     $attendeeBox.classList.add('row');
     $attendeeBox.classList.add('attendee-box');
+    $attendeeBox.classList.add('d-flex');
+    $attendeeBox.classList.add('flex-wrap');
 
     eventObj.attendees.forEach((person) => {
         const $onePerson = document.createElement('div');
-        $onePerson.classList.add('col');
         $onePerson.classList.add('person');
 
-        if(person.self && !person.organizer){
+        if(person.self){
             const you = `<strong>You were invited!</strong><br>`
             const invitationAccepted = `<p class="text-muted">Invitation accepted</p>`;
             const invitationRejected = `<p class="text-muted">Invitation rejected</p>`;
             const unsure = `<p>Will you attend?</p>
-            <div><input class="custom-radio form-check-input radio-btn" type="radio" name="attending" id="yes-radio" value="true"><label class="form-check-label radio-label" for="yes">yes</label></div>
-            <div><input class="custom-radio form-check-input radio-btn" type="radio" name="attending" id="no-radio" value="false"><label class="form-check-label radio-label" for="no">no</label></div>`
+            <div class="radio-box">
+            <input class="custom-radio form-check-input radio-btn" type="radio" name="attending" id="yes-radio" value="true">
+            <label for="yes">YES</label>
+            <input class="custom-radio form-check-input radio-btn" type="radio" name="attending" id="no-radio" value="false">
+            <label for="no">NO</label>
+            </div>`
             
             const isAttending = person.responseStatus ?  invitationAccepted : person.responseStatus === false ? invitationRejected : unsure;
             $onePerson.innerHTML = you + isAttending;

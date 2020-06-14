@@ -1,13 +1,12 @@
 export function showInstructions() {
-
     if(localStorage.length === 0) {
         const $instructions = document.querySelector('#instructions');
         $instructions.classList.remove('not-display');
     
         const $closeInstructionsButton = document.querySelector('#close-instructions-button');
-        $closeInstructionsButton.addEventListener('click', () => {$instructions.classList.add('not-display')})
+        $closeInstructionsButton.addEventListener('click', () => {$instructions.classList.add('not-display')});
     }else{
-        return 'This is not your fist time visiting this page'
+        return 'This is not your fist time visiting this page';
     }
 }
 
