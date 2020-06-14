@@ -1,5 +1,14 @@
 let fetchPolyfill;
 
+beforeEach(() => {
+    cy.restoreLocalStorageCache();
+    cy.log('se esta ejecutando el before each')
+  });
+  
+  afterEach(() => {
+    cy.saveLocalStorageCache();
+  });
+
 before(() => {
     const polyfillUrl = 'https://unpkg.com/unfetch/dist/unfetch.umd.js';
 
@@ -248,7 +257,6 @@ describe('Verifica que puedan crearse eventos y luego ser modificados', () => {
         cy.get('#create-button').should('be.disabled');
 
         cy.get('#organizer-info').find('[type="radio"]').first().check();
-        cy.get('#create-button').should('be.disabled');
 
         cy.get('#new-event-modal').trigger('mouseover');
         cy.get('#create-button').should('not.be.disabled');
@@ -293,14 +301,14 @@ describe('Verifica que puedan crearse eventos y luego ser modificados', () => {
 
     it('El evento creado puede ser modificado como los demas', () => {
         cy.get('#event-information>.duration-container>input').eq(4).clear().type(28);
-        cy.get('#event-information>.duration-container>input').eq(6).clear().type(9);
+        cy.get('#event-information>.duration-container>input').eq(6).clear().type(5);
         cy.get('#event-information>.duration-container>input').eq(14).clear().type(28);
-        cy.get('#event-information>.duration-container>input').eq(16).clear().type(10);
+        cy.get('#event-information>.duration-container>input').eq(16).clear().type(6);
         cy.get('#no-radio').check();
 
         cy.get('#event-information button').click();
         cy.get('#week-input').type('2020-W18');
-        cy.get('[data-hour=2020-04-28-9]').find('.event').find('.fa-cog').click();
+        cy.get('[data-hour=2020-04-28-5]').find('.event').find('.fa-cog').click();
         cy.get('#summary-modif').should('have.value', 'Test A');
         cy.get('.attendee-box').find('strong').contains('You were invited!').siblings('p').contains('Invitation rejected');
     });

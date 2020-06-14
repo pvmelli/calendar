@@ -1,8 +1,20 @@
-import {loadEventsFromLocalStorage} from '../storage/storage.js';
+import {loadFirstVisitToken, saveFirstVisitToken, loadEventsFromLocalStorage} from '../storage/storage.js';
+
+
+export function manageFirstVisitToken() {
+    try{
+        loadFirstVisitToken();
+        return 'This is not the first visit';
+    }catch(e){
+        saveFirstVisitToken();
+        return 'This is the first visit';
+    };
+};
 
 export async function getEvents(daysArray, loadAllEventsFromApiCallback = () => {}, saveEventsToLocalStorageCallback = () => {}) {
     try {
         let eventsData = loadEventsFromLocalStorage(daysArray)
+        
         const matchingEvents = eventsData.filter(event => daysArray.indexOf(event.startDay) !== -1)
 
         return matchingEvents;

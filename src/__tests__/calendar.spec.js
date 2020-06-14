@@ -19,7 +19,12 @@ test("Asigna event listeners e inicializa el calendario", () => {
         [expect.stringContaining("click"), expect.any(Function)],
         [expect.stringContaining("input"), expect.any(Function)],
         [expect.stringContaining("click"), expect.any(Function)],
-      ]);
+    ]);
+
+    
+    localStorage.setItem('firstVisitToken', JSON.stringify({"visit" : true}))
+
+    initialize();
     
 
 })
