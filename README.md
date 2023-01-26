@@ -1,5 +1,11 @@
-# CALENDARIO SEMANAL
-Calendario diseñado para mostrar eventos de manera semanal. Estos eventos son generados a partir de un archivo json que actúa a modo de API.
+# CALEVEN
+Calendario personal para tus eventos de la semana! :calendar: :white_check_mark:
+
+### Detalles técnicos
+* Los eventos son generados a partir de un archivo JSON que actúa a modo de API
+* Los nuevos eventos creados se almacenan en el LocalStorage, por medio de convertir el JSON en un string. Este string es luego reconvertido a JSON y leído para generar las casillas de evento. También es posible modificar o cancelar eventos.
+* Se detecta si es la primera visita del usuario por medio de la lectura de su LocalStorage, y se le muestra un cartel de instrucciones si lo es.
+* Incluye tanto tests de interfaz (Cypress) como unitarios (Jest)
 
  ## REQUISITOS
  
